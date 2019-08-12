@@ -1,7 +1,8 @@
 import React from 'react';
 import {
-  Text,
   View,
+  TouchableOpacity,
+  Text,
   StyleSheet
 } from 'react-native';
 
@@ -10,7 +11,9 @@ import {
 export default function HomeScreen() {
   return (
     <View style={styles.container} >
-      <Text>Teste</Text>
+      <TouchableOpacity style={styles.button}>
+        <Text style={styles.buttonText}>Colmeia 1</Text>
+      </TouchableOpacity>
     </View>
     ); 
 }
@@ -19,7 +22,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: '#FAFAFA'
+    justifyContent: 'center',
+    backgroundColor: '#FAFAFA',
+    padding: 30
+  },
+  button: {  
+    height: 46,
+    alignSelf: 'stretch',
+    backgroundColor: '#DF4723',
+    borderRadius: 4,
+    marginTop: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: '#FFF',
+    fontWeight: 'bold',
+    fontSize: 16,
   }
 })
 
