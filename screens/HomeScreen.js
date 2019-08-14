@@ -12,9 +12,9 @@ import Colors from '../constants/Colors';
 
 export default function HomeScreen({ navigation }) {
 
-  async function handleLogin() {
-    navigation.navigate('DataScreen')
-  }
+  // async function handleLogin() {
+  //   navigation.navigate('DataScreen')
+  // }
 
   return (
     <View style={styles.container} >

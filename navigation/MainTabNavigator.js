@@ -7,11 +7,19 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import AboutScreen from '../screens/AboutScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import DataScreen from '../screens/DataScreen'
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
   default: {},
 });
+
+const DataStack = createStackNavigator(
+  {
+    Data: DataScreen
+  },
+  config
+)
 
 const HomeStack = createStackNavigator(
   {
@@ -25,9 +33,7 @@ HomeStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={
-        Platform.OS === 'ios' ? 'ios-home' : 'md-link'}
-    />
+      name={Platform.OS === 'ios' ? 'ios-home' : 'md-link'}/>
   ),
 };
 
@@ -71,7 +77,8 @@ AboutStack.path = '';
 const tabNavigator = createBottomTabNavigator({
   HomeStack,
   SettingsStack,
-  AboutStack
+  AboutStack,
+  DataStack
 });
 
 tabNavigator.path = '';
