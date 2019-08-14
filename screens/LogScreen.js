@@ -1,18 +1,18 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text } from 'react-native';
-import { ExpoLinksView } from '@expo/samples';
 
-export default function AboutScreen() {
+// TODO Table para listar um log do sensor em questão, seja ela (Temp, umidade, peso ou ruído)
+
+export default function LogScreen() {
   return (
     <ScrollView style={styles.container}>
-      <ExpoLinksView />
-      <Text>TCC</Text>
+        <Text>Histórico de informações</Text>
     </ScrollView>
   );
 }
 
 AboutScreen.navigationOptions = {
-  title: 'Sobre',
+  title: 'Histórico',
 };
 
 const styles = StyleSheet.create({

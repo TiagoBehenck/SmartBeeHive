@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   button: {  
     height: 46,
     alignSelf: 'stretch',
-    backgroundColor: '#FCB43A',
+    backgroundColor: `${Colors.primaryColor}`,
     borderRadius: 4,
     marginTop: 10,
     justifyContent: 'center',
