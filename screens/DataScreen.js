@@ -14,7 +14,7 @@ export default function DataScreen({ navigation }) {
   return (
       <View style={styles.container}>
         <Text> Sensores </Text>
-        <TouchableOpacity onPress={() => navigation.navigate('Log')} style={styles.button}>
+        <TouchableOpacity onPress={() => navigation.navigate('Log', { title: 'Temperatura' })} style={styles.button}>
           <Text style={styles.buttonText}> Temperatura: </Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button}>

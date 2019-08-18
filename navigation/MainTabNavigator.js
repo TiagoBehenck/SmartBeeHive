@@ -1,6 +1,6 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import { createStackNavigator, createBottomTabNavigator, HeaderBackButton } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
 
@@ -8,24 +8,12 @@ import HomeScreen from '../screens/HomeScreen';
 import AboutScreen from '../screens/AboutScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import DataScreen from '../screens/DataScreen'
-
-const config = Platform.select({
-  web: { headerMode: 'screen' },
-  default: {},
-});
-
-const DataStack = createStackNavigator(
-  {
-    Data: DataScreen
-  },
-  config
-)
+import LogScreen from '../screens/LogScreen';
 
 const HomeStack = createStackNavigator(
   {
     Home: HomeScreen,
-  },
-  config
+  }
 );
 
 HomeStack.navigationOptions = {
@@ -42,8 +30,7 @@ HomeStack.path = '';
 const SettingsStack = createStackNavigator(
   {
     Settings: SettingsScreen,
-  },
-  config
+  }
 );
 
 SettingsStack.navigationOptions = {
@@ -59,8 +46,7 @@ SettingsStack.path = '';
 const AboutStack = createStackNavigator(
   {
     About: AboutScreen,
-  },
-  config
+  }
 );
 
 AboutStack.navigationOptions = {
@@ -74,13 +60,29 @@ AboutStack.navigationOptions = {
 
 AboutStack.path = '';
 
-const tabNavigator = createBottomTabNavigator({
-  HomeStack,
-  SettingsStack,
-  AboutStack,
-  DataStack
-});
+const TabNavigator = createBottomTabNavigator(
+  {
+    HomeStack,
+    SettingsStack,
+    AboutStack,
+  },
+  {
+    navigationOptions: {
+      header: null
+    }
+  }
+);
 
-tabNavigator.path = '';
+TabNavigator.path = '';
 
-export default tabNavigator;
+
+const mainStack = createStackNavigator(
+  {
+    Main: TabNavigator,
+    Data: DataScreen,
+    Log: LogScreen
+  }
+);
+
+
+export default mainStack;
