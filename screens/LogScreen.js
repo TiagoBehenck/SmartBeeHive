@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text, Button } from 'react-native';
+import { ScrollView, StyleSheet, Text } from 'react-native';
 
 // TODO Table para listar um log do sensor em questão, seja ela (Temp, umidade, peso ou ruído)
 
