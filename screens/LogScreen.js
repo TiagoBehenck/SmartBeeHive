@@ -4,6 +4,7 @@ import { ScrollView, StyleSheet, Text } from 'react-native';
 // TODO Table para listar um log do sensor em questão, seja ela (Temp, umidade, peso ou ruído)
 
 export default function LogScreen() {
+
   return (
     <ScrollView style={styles.container}>
         <Text>Histórico de informações</Text>
@@ -11,9 +12,15 @@ export default function LogScreen() {
   );
 }
 
-AboutScreen.navigationOptions = {
-  title: 'Histórico',
-};
+LogScreen.navigationOptions = ({ navigation }) => {
+  const { params } = navigation.state
+  const title = params.title
+  
+  return {
+    title
+  }
+}
+
 
 const styles = StyleSheet.create({
   container: {
