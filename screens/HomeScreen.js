@@ -30,12 +30,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: `${Colors.backgroundColor}`,
+    backgroundColor: `${Colors.quaternaryColor}`,
     padding: 30
   },
 
   button: {  
-    height: 46,
+    height: 60,
     alignSelf: 'stretch',
     backgroundColor: `${Colors.primaryColor}`,
     borderRadius: 4,
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   },
 
   buttonText: {
-    color: '#23212c',
+    color: `${Colors.secundaryColor}`,
     fontWeight: 'bold',
     fontSize: 16,
   },
@@ -54,4 +54,6 @@ const styles = StyleSheet.create({
 
 HomeScreen.navigationOptions = {
   title: 'SmartBeeHive',
+  headerTintColor: '#F3C622',
+  headerStyle: { backgroundColor: '#3A3637'},
 };

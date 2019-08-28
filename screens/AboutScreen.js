@@ -1,24 +1,29 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text } from 'react-native';
-import { ExpoLinksView } from '@expo/samples';
+import { View, StyleSheet, Text } from 'react-native';
+
+import Colors from '../constants/Colors';
 
 export default function AboutScreen() {
   return (
-    <ScrollView style={styles.container}>
-      <ExpoLinksView />
-      <Text>TCC</Text>
-    </ScrollView>
+      <View style={styles.container}>
+        <Text>TCC</Text>
+      </View>
   );
 }
-
-AboutScreen.navigationOptions = {
-  title: 'Sobre',
-};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 15,
-    backgroundColor: '#FAFAFA',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: `${Colors.quaternaryColor}`,
+    padding: 30
   },
 });
+
+
+AboutScreen.navigationOptions = {
+  title: 'Sobre',
+  headerTintColor: '#F3C622',
+  headerStyle: { backgroundColor: '#3A3637'},
+};

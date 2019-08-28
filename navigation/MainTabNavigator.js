@@ -18,6 +18,10 @@ const HomeStack = createStackNavigator(
 
 HomeStack.navigationOptions = {
   tabBarLabel: 'Menu',
+  tabBarOptions: {
+    activeTintColor: '#FCB43A',
+    inactiveTintColor: '#3A3637',
+  },
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -35,6 +39,10 @@ const SettingsStack = createStackNavigator(
 
 SettingsStack.navigationOptions = {
   tabBarLabel: 'Configurações',
+  tabBarOptions: {
+    activeTintColor: '#FCB43A',
+    inactiveTintColor: '#3A3637',
+  },
   tabBarIcon: ({ focused }) => (
     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
   ),
@@ -51,6 +59,10 @@ const AboutStack = createStackNavigator(
 
 AboutStack.navigationOptions = {
   tabBarLabel: 'Sobre',
+  tabBarOptions: {
+    activeTintColor: '#FCB43A',
+    inactiveTintColor: '#3A3637',
+  },
   tabBarIcon: ({ focused }) => (
     <TabBarIcon focused={focused} name={Platform.OS === 'ios' 
                                         ? `ios-information-circle${focused ? '' : '-outline'}`
@@ -68,9 +80,11 @@ const TabNavigator = createBottomTabNavigator(
   },
   {
     navigationOptions: {
-      header: null
+      header: null,
+      headerBackTitle: 'Voltar'
     }
-  }
+  },
+  
 );
 
 TabNavigator.path = '';
@@ -81,7 +95,7 @@ const mainStack = createStackNavigator(
     Main: TabNavigator,
     Data: DataScreen,
     Log: LogScreen
-  }
+  },
 );
 
 

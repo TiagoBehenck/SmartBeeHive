@@ -13,17 +13,16 @@ import Colors from '../constants/Colors'
 export default function DataScreen({ navigation }) {
   return (
       <View style={styles.container}>
-        <Text> Sensores </Text>
         <TouchableOpacity onPress={() => navigation.navigate('Log', { title: 'Temperatura' })} style={styles.button}>
           <Text style={styles.buttonText}> Temperatura: </Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
+        </TouchableOpacity >
+        <TouchableOpacity onPress={() => navigation.navigate('Log', { title: 'Umidade' })} style={styles.button}>
           <Text style={styles.buttonText}> Umidade: </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity onPress={() => navigation.navigate('Log', { title: 'Peso' })} style={styles.button}>
           <Text style={styles.buttonText}> Peso: </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity onPress={() => navigation.navigate('Log', { title: 'Ruído' })} style={styles.button}>
           <Text style={styles.buttonText}> Ruído: </Text>
         </TouchableOpacity>
       </View>
@@ -34,14 +33,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1, alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: `${Colors.backgroundColor}`,
+    backgroundColor: `${Colors.quaternaryColor}`,
     padding: 30
   },
 
   button: {
-    height: 46,
+    height: 60,
     alignSelf: 'stretch',
-    backgroundColor: `${Colors.quaternaryColor}`,
+    backgroundColor: `${Colors.primaryColor}`,
     borderRadius: 4,
     marginTop: 10,
     justifyContent: 'center',
@@ -49,8 +48,14 @@ const styles = StyleSheet.create({
   },
 
   buttonText: {
-    color: `${Colors.quinaryColor}`,
+    color: `${Colors.secundaryColor}`,
     fontWeight: 'bold',
     fontSize: 16,
   }
 });
+
+DataScreen.navigationOptions = {
+  title: 'Sensores',
+  headerTintColor: '#F3C622',
+  headerStyle: { backgroundColor: '#3A3637'},
+};
