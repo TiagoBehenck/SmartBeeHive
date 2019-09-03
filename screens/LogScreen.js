@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: `${Colors.quaternaryColor}`,
+    // backgroundColor: `${Colors.quaternaryColor}`,
     padding: 30
   },
 });
@@ -31,6 +31,6 @@ LogScreen.navigationOptions = ({ navigation }) => {
   return {
     title,
     headerTintColor: '#F3C622',
-    headerStyle: { backgroundColor: '#3A3637'},
+    // headerStyle: { backgroundColor: '#3A3637'},
   }
 }
