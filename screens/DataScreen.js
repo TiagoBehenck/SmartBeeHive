@@ -13,36 +13,37 @@ import Colors from '../constants/Colors'
 
   
 // TODO Tela onde vai aparecer as informações em "tempo real" da colmeia
+// TODO Alinhar ícones a esquerda de cada botão
 
 export default function DataScreen({ navigation }) {
   return (
       <View style={styles.container}>
 
         <TouchableOpacity style={styles.button}>
-        <TabBarIcon
-              style={styles.buttonIcon}
-              name={Platform.OS === 'ios' ? 'ios-calendar' : 'md-link'} />
-          <Text style={styles.buttonText}> Data: </Text>
-          <Text style={styles.buttonText}> 03/09/2019 </Text>
+            <TabBarIcon
+                style={styles.buttonIcon}
+                name={Platform.OS === 'ios' ? 'ios-calendar' : 'md-calendar'} />
+            <Text style={styles.buttonText}> Data: </Text>
+            <Text style={styles.buttonText}> 03/09/2019 </Text>
         </TouchableOpacity >
 
         <TouchableOpacity style={styles.button}>
           
             <TabBarIcon
               style={styles.buttonIcon}
-              name={Platform.OS === 'ios' ? 'ios-alarm' : 'md-link'} />
+              name={Platform.OS === 'ios' ? 'ios-alarm' : 'md-alarm'} />
             <Text style={styles.buttonText}>
               Hora:
             </Text>
             <Text style={styles.buttonText}> 18:00 </Text>
-      
+
         </TouchableOpacity >
 
         <TouchableOpacity onPress={() => navigation.navigate('Log', { title: 'Temperatura' })} style={styles.button}>
           
         <TabBarIcon
               style={styles.buttonIcon}
-              name={Platform.OS === 'ios' ? 'ios-thermometer' : 'md-link'} />
+              name={Platform.OS === 'ios' ? 'ios-thermometer' : 'md-thermometer'} />
           <Text style={styles.buttonText}> Temperatura: </Text>
           <Text style={styles.buttonText}> 30ºC </Text>
 
@@ -53,7 +54,7 @@ export default function DataScreen({ navigation }) {
 
         <TabBarIcon
               style={styles.buttonIcon}
-              name={Platform.OS === 'ios' ? 'ios-water' : 'md-link'} />        
+              name={Platform.OS === 'ios' ? 'ios-water' : 'md-water'} />        
           <Text style={styles.buttonText}> Umidade: </Text>
           <Text style={styles.buttonText}> 80% </Text>
 
@@ -63,7 +64,7 @@ export default function DataScreen({ navigation }) {
 
         <TabBarIcon
               style={styles.buttonIcon}
-              name={Platform.OS === 'ios' ? 'ios-pulse' : 'md-link'} />   
+              name={Platform.OS === 'ios' ? 'ios-pulse' : 'md-pulse'} />   
           <Text style={styles.buttonText}> Peso: </Text>
           <Text style={styles.buttonText}> 37 Kg </Text>
 
@@ -73,7 +74,7 @@ export default function DataScreen({ navigation }) {
 
         <TabBarIcon
               style={styles.buttonIcon}
-              name={Platform.OS === 'ios' ? 'ios-volume-high' : 'md-link'} /> 
+              name={Platform.OS === 'ios' ? 'ios-volume-high' : 'md-volume-high'} /> 
           <Text style={styles.buttonText}> Ruído: </Text>
           <Text style={styles.buttonText}> 68 dB </Text>
 
