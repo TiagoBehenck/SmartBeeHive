@@ -9,7 +9,9 @@ export default function AboutScreen() {
   async function getData() {
     const response = await api.get('/phpjoao.php?dados={"tipo":13,"apicultor":4}');
 
-    console.log(response.data)
+    const data  = response.data;
+
+    console.log(data.colmeias);
 
   }
 
