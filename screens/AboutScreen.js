@@ -1,28 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 import Colors from '../constants/Colors';
-import api from '../services/api';
+
+// import api from '../services/api';
 
 export default function AboutScreen() {
+  const  [ colmeias, setColmeias ] = useState({})
 
-  async function getData() {
-    const response = await api.get('/phpjoao.php?dados={"tipo":13,"apicultor":4}');
-
-    const data  = response.data;
-
-    console.log(data.colmeias);
-
+  function getData() {
+    fetch("http://spacious-mistrial.000webhostapp.com/phpjoao.php?dados={%22tipo%22:13,%22apicultor%22:4}")
+    .then(res => res.json())
+    .then(res => this.setState({ colmeias: res }))
   }
 
   return (
       <View style={styles.container}>
         <TouchableOpacity onPress={() => getData()} style={styles.button}> 
-          <Text>TCC</Text>
+          {colmeias && colmeias.map(colmeia => {
+            <Text>{colmeia.id}</Text>
+          })}
         </TouchableOpacity>
       </View>
   );
 }
+
+// export default function AboutScreen() {
+
+//   return (
+//       <View style={styles.container}>
+//         <TouchableOpacity onPress={() => getData()} style={styles.button}> 
+//           <Text>TCC</Text>
+//         </TouchableOpacity>
+//       </View>
+//   );
+// }
 
 const styles = StyleSheet.create({
   container: {
