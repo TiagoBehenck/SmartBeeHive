@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     TouchableOpacity,
     Text,
@@ -10,16 +10,27 @@ import {
 import TabBarIcon from '../components/TabBarIcon';
 
 import Colors from '../constants/Colors'
-
+import api from '../services/api'
   
 // TODO Tela onde vai aparecer as informações em "tempo real" da colmeia
 // TODO Alinhar ícones a esquerda de cada botão
 
 export default function DataScreen({ navigation }) {
+  const [data, setData] = useState({});
+
+
+  async function getData() {
+    const response = await api.get(
+      '/phpjoao.php?dados=%7B%22tipo%22:14%7D'
+    )
+    
+    setData(response.data.leituras);
+  }
+
   return (
       <View style={styles.container}>
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity onPress={() => getData()} style={styles.button}>
             <TabBarIcon
                 style={styles.buttonIcon}
                 name={Platform.OS === 'ios' ? 'ios-calendar' : 'md-calendar'} />
@@ -27,6 +38,14 @@ export default function DataScreen({ navigation }) {
             <Text style={styles.buttonText}> 03/09/2019 </Text>
         </TouchableOpacity >
 
+        {data.length &&
+        data.map((data, i) => (
+          <Text key={i}>
+            {data.valor_sensor} | {data.dataHora}
+          </Text>
+        ))}
+
+{/* 
         <TouchableOpacity style={styles.button}>
           
             <TabBarIcon
@@ -78,7 +97,7 @@ export default function DataScreen({ navigation }) {
           <Text style={styles.buttonText}> Ruído: </Text>
           <Text style={styles.buttonText}> 68 dB </Text>
 
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
   )
 }
