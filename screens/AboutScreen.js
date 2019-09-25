@@ -21,16 +21,20 @@ export default class AboutScreen extends Component {
 
   render() {
     
-    return(
+    return this.state.colmeias.length ? (
       <View style={styles.container}>
         <Text>
         {this.state.colmeias.length && this.state.colmeias.map(colmeia => (
            <Text key={colmeia.id}>
-            {colmeia.id} | {colmeia.descricao}
+            {colmeia.id} | {colmeia.descricao} | 
           </Text>
           ))}
         </Text>
       </View>
+    ) : (
+      <View style={styles.container}>
+         <Text>Carregando...</Text>
+       </View>
     )
     
     // const { colmeia } = this.state;
