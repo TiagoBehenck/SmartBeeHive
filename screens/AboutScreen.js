@@ -4,46 +4,41 @@ import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import Colors from "../constants/Colors";
 import api from "../services/api";
 
-export class AboutScreen extends Component {
-
+export default class AboutScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      colmeias
-    }
+      colmeia: {}
+    };
   }
 
   componentDidMount() {
     const response = api.get('/phpjoao.php?dados={"tipo":13,"apicultor":4}');
-    
-    this.setState({ colmeias: response.data.colmeias })
 
+    this.setState({ colmeia: response.data });
   }
 
   render() {
-    
-    const { colmeias } = this.state;
+    const { colmeia } = this.state;
 
-    return colmeias ? (  <View style={styles.container}>
-      <TouchableOpacity onPress={() => getData()} style={styles.button}>
-        <Text>Clique para carregar os dados da API</Text>
-      </TouchableOpacity>
+    return colmeia ? (
+      <View style={styles.container}>
+        <TouchableOpacity onPress={() => getData()} style={styles.button}>
+          <Text>Clique para carregar os dados da API</Text>
+        </TouchableOpacity>
 
-      {colmeias.length &&
-        colmeias.map((colmeia, i) => (
-          <Text key={i}>
-            {colmeia.id} | {colmeia.descricao}
-          </Text>
-        ))}
-    </View>) : (
-      <View>
-
+        {colmeia.length &&
+          colmeia.map((colmeias, i) => (
+            <Text key={i}>
+              {colmeias.id} | {colmeias.descricao}
+            </Text>
+          ))}
       </View>
-    )
+    ) : (
+      <View></View>
+    );
   }
 }
-
-
 
 // export default function AboutScreen() {
 //   const [colmeias, setColmeias] = useState({});
@@ -75,25 +70,24 @@ export class AboutScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     // backgroundColor: `${Colors.quaternaryColor}`,
     padding: 30
   },
-  button: {  
+  button: {
     height: 60,
-    alignSelf: 'stretch',
+    alignSelf: "stretch",
     backgroundColor: `${Colors.primaryColor}`,
     borderRadius: 4,
     marginTop: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+    justifyContent: "center",
+    alignItems: "center"
+  }
 });
 
-
 AboutScreen.navigationOptions = {
-  title: 'Sobre',
-  headerTintColor: '#F3C622',
+  title: "Sobre",
+  headerTintColor: "#F3C622"
   // headerStyle: { backgroundColor: '#3A3637'},
 };
