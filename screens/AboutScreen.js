@@ -8,35 +8,50 @@ export default class AboutScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      colmeia: {}
+      colmeias: []
     };
   }
 
-  componentDidMount() {
-    const response = api.get('/phpjoao.php?dados={"tipo":13,"apicultor":4}');
-
-    this.setState({ colmeia: response.data });
+  async componentDidMount() {
+    const response = await api.get('/phpjoao.php?dados={"tipo":13,"apicultor":4}')
+    
+    this.setState({ colmeias: response.data });
+    console.log(this.state.colmeias);
   }
 
   render() {
-    const { colmeia } = this.state;
-
-    return colmeia ? (
+    
+    return(
       <View style={styles.container}>
-        <TouchableOpacity onPress={() => getData()} style={styles.button}>
-          <Text>Clique para carregar os dados da API</Text>
-        </TouchableOpacity>
-
-        {colmeia.length &&
-          colmeia.map((colmeias, i) => (
-            <Text key={i}>
-              {colmeias.id} | {colmeias.descricao}
+        <Text>
+        {this.state.colmeias.map(colmeia => (
+            <Text>
+              {colmeia.id} | {colmeia.descricao}
             </Text>
           ))}
+        </Text>
       </View>
-    ) : (
-      <View></View>
-    );
+    )
+    
+    // const { colmeia } = this.state;
+
+    // return colmeia ? (
+    //   <View style={styles.container}>
+    //     <TouchableOpacity  style={styles.button}>
+    //       <Text>Clique para carregar os dados da API</Text>
+    //     </TouchableOpacity>
+
+    //     {colmeia.map((colmeias, i) => (
+    //         <Text key={i}>
+    //           {colmeias.id} | {colmeias.descricao}
+    //         </Text>
+    //       ))}
+    //   </View>
+    // ) : (
+    //   <View style={styles.container}>
+    //     <Text>Carregando...</Text>
+    //   </View>
+    // );
   }
 }
 
