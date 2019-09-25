@@ -1,22 +1,30 @@
-import React, { useState } from "react";
+import React, { Component } from "react";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 
 import Colors from "../constants/Colors";
 import api from "../services/api";
 
-export default function AboutScreen() {
-  const [colmeias, setColmeias] = useState({});
+export class AboutScreen extends Component {
 
-  async function getData() {
-    const response = await api.get(
-      '/phpjoao.php?dados={"tipo":13,"apicultor":4}'
-    );
-
-    setColmeias(response.data.colmeias);
+  constructor(props) {
+    super(props);
+    this.state = {
+      colmeias
+    }
   }
 
-  return (
-    <View style={styles.container}>
+  componentDidMount() {
+    const response = api.get('/phpjoao.php?dados={"tipo":13,"apicultor":4}');
+    
+    this.setState({ colmeias: response.data.colmeias })
+
+  }
+
+  render() {
+    
+    const { colmeias } = this.state;
+
+    return colmeias ? (  <View style={styles.container}>
       <TouchableOpacity onPress={() => getData()} style={styles.button}>
         <Text>Clique para carregar os dados da API</Text>
       </TouchableOpacity>
@@ -27,9 +35,42 @@ export default function AboutScreen() {
             {colmeia.id} | {colmeia.descricao}
           </Text>
         ))}
-    </View>
-  );
+    </View>) : (
+      <View>
+
+      </View>
+    )
+  }
 }
+
+
+
+// export default function AboutScreen() {
+//   const [colmeias, setColmeias] = useState({});
+
+//   async function getData() {
+//     const response = await api.get(
+//       '/phpjoao.php?dados={"tipo":13,"apicultor":4}'
+//     );
+
+//     setColmeias(response.data.colmeias);
+//   }
+
+//   return (
+//     <View style={styles.container}>
+//       <TouchableOpacity onPress={() => getData()} style={styles.button}>
+//         <Text>Clique para carregar os dados da API</Text>
+//       </TouchableOpacity>
+
+//       {colmeias.length &&
+//         colmeias.map((colmeia, i) => (
+//           <Text key={i}>
+//             {colmeia.id} | {colmeia.descricao}
+//           </Text>
+//         ))}
+//     </View>
+//   );
+// }
 
 const styles = StyleSheet.create({
   container: {

@@ -3,10 +3,9 @@ import {
   View,
   Text,
   TouchableOpacity,
-  StyleSheet
+  StyleSheet,
+  TextInput
 } from 'react-native';
-
-import { TextInput } from 'react-native-paper';
 
 import Colors from '../constants/Colors';
 
