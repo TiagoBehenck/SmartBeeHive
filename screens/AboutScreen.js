@@ -15,7 +15,7 @@ export default class AboutScreen extends Component {
   async componentDidMount() {
     const response = await api.get('/phpjoao.php?dados={"tipo":13,"apicultor":4}')
     
-    this.setState({ colmeias: response.data });
+    this.setState({ colmeias: response.data.colmeias });
     console.log(this.state.colmeias);
   }
 
@@ -24,10 +24,10 @@ export default class AboutScreen extends Component {
     return(
       <View style={styles.container}>
         <Text>
-        {this.state.colmeias.map(colmeia => (
-            <Text>
-              {colmeia.id} | {colmeia.descricao}
-            </Text>
+        {this.state.colmeias.length && this.state.colmeias.map(colmeia => (
+           <Text key={colmeia.id}>
+            {colmeia.id} | {colmeia.descricao}
+          </Text>
           ))}
         </Text>
       </View>
@@ -88,7 +88,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     // backgroundColor: `${Colors.quaternaryColor}`,
-    padding: 30
+    padding: 30,
+    color: "#000"
   },
   button: {
     height: 60,
