@@ -8,15 +8,17 @@ export default class AboutScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      colmeias: []
+      dados: []
     };
   }
 
   async componentDidMount() {
     const response = await api.get('/phpjoao.php?dados={"tipo":13,"apicultor":4}')
     
-    this.setState({ colmeias: response.data.colmeias });
-    console.log(this.state.colmeias);
+    this.setState({ colmeias: response.data });
+
+    // console.log(this.state.colmeias);
+  
   }
 
   render() {
@@ -24,7 +26,7 @@ export default class AboutScreen extends Component {
     return this.state.colmeias.length ? (
       <View style={styles.container}>
         <Text>
-        {this.state.colmeias.length && this.state.colmeias.map(colmeia => (
+        {this.state.dados.colmeias.length && this.state.dados.colmeias.map(colmeia => (
            <Text key={colmeia.id}>
             {colmeia.id} | {colmeia.descricao} | 
           </Text>
