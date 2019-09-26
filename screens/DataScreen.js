@@ -1,106 +1,151 @@
-import React, { useState } from "react";
-import {
-    TouchableOpacity,
-    Text,
-    View,
-    StyleSheet, 
-    Platform
-  } from 'react-native';
+import React, { Component } from "react"
+import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 
-import TabBarIcon from '../components/TabBarIcon';
+import Colors from "../constants/Colors";
+import api from "../services/api";
 
-import Colors from '../constants/Colors'
-import api from '../services/api'
-  
-// TODO Tela onde vai aparecer as informações em "tempo real" da colmeia
-// TODO Alinhar ícones a esquerda de cada botão
+export default class DataScreen extends Component {
 
-export default function DataScreen({ navigation }) {
-  const [data, setData] = useState({});
-
-
-  async function getData() {
-    const response = await api.get(
-      '/phpjoao.php?dados=%7B%22tipo%22:14%7D'
-    )
-    
-    setData(response.data.leituras);
+  constructor(props) {
+    super(props)
+    this.state = {
+      leituras: []
+    };
   }
 
-  return (
+  async componentDidMount() {
+
+    const response = await api.get('/phpjoao.php?dados=%7B%22tipo%22:14%7D')
+    
+    this.setState({ leituras: response.data.leituras  });
+ 
+  }
+
+  render() {
+    return this.state.leituras.length ? (
       <View style={styles.container}>
-
-        <TouchableOpacity onPress={() => getData()} style={styles.button}>
-            <TabBarIcon
-                style={styles.buttonIcon}
-                name={Platform.OS === 'ios' ? 'ios-calendar' : 'md-calendar'} />
-            <Text style={styles.buttonText}> Data: </Text>
-            <Text style={styles.buttonText}> 03/09/2019 </Text>
-        </TouchableOpacity >
-
-        {data.length &&
-        data.map((data, i) => (
-          <Text key={i}>
-            {data.valor_sensor} | {data.dataHora}
+      <Text>
+      {this.state.leituras.length && this.state.leituras.map(leitura => (
+          <Text key={leitura.id}>
+            {leitura.valor_sensor} | {leitura.dataHora} | 
           </Text>
         ))}
+      </Text>
+    </View>
+    ) : (
+      <View style={styles.container}>
+         <Text>Carregando...</Text>
+      </View>
+    )
+  }
 
-{/* 
-        <TouchableOpacity style={styles.button}>
+
+}
+
+
+// import React, { useState } from "react";
+// import {
+//     TouchableOpacity,
+//     Text,
+//     View,
+//     StyleSheet, 
+//     Platform
+//   } from 'react-native';
+
+// import TabBarIcon from '../components/TabBarIcon';
+
+// import Colors from '../constants/Colors'
+// import api from '../services/api'
+  
+// // TODO Tela onde vai aparecer as informações em "tempo real" da colmeia
+// // TODO Alinhar ícones a esquerda de cada botão
+
+// export default function DataScreen({ navigation }) {
+//   const [data, setData] = useState({});
+
+
+//   async function getData() {
+//     const response = await api.get(
+//       '/phpjoao.php?dados=%7B%22tipo%22:14%7D'
+//     )
+    
+//     setData(response.data.leituras);
+//   }
+
+//   return (
+//       <View style={styles.container}>
+
+//         <TouchableOpacity onPress={() => getData()} style={styles.button}>
+//             <TabBarIcon
+//                 style={styles.buttonIcon}
+//                 name={Platform.OS === 'ios' ? 'ios-calendar' : 'md-calendar'} />
+//             <Text style={styles.buttonText}> Data: </Text>
+//             <Text style={styles.buttonText}> 03/09/2019 </Text>
+//         </TouchableOpacity >
+
+//         {data.length &&
+//         data.map((data, i) => (
+//           <Text key={i}>
+//             {data.valor_sensor} | {data.dataHora}
+//           </Text>
+//         ))}
+
+// {/* 
+//         <TouchableOpacity style={styles.button}>
           
-            <TabBarIcon
-              style={styles.buttonIcon}
-              name={Platform.OS === 'ios' ? 'ios-alarm' : 'md-alarm'} />
-            <Text style={styles.buttonText}>
-              Hora:
-            </Text>
-            <Text style={styles.buttonText}> 18:00 </Text>
+//             <TabBarIcon
+//               style={styles.buttonIcon}
+//               name={Platform.OS === 'ios' ? 'ios-alarm' : 'md-alarm'} />
+//             <Text style={styles.buttonText}>
+//               Hora:
+//             </Text>
+//             <Text style={styles.buttonText}> 18:00 </Text>
 
-        </TouchableOpacity >
+//         </TouchableOpacity >
 
-        <TouchableOpacity onPress={() => navigation.navigate('Log', { title: 'Temperatura' })} style={styles.button}>
+//         <TouchableOpacity onPress={() => navigation.navigate('Log', { title: 'Temperatura' })} style={styles.button}>
           
-        <TabBarIcon
-              style={styles.buttonIcon}
-              name={Platform.OS === 'ios' ? 'ios-thermometer' : 'md-thermometer'} />
-          <Text style={styles.buttonText}> Temperatura: </Text>
-          <Text style={styles.buttonText}> 30ºC </Text>
+//         <TabBarIcon
+//               style={styles.buttonIcon}
+//               name={Platform.OS === 'ios' ? 'ios-thermometer' : 'md-thermometer'} />
+//           <Text style={styles.buttonText}> Temperatura: </Text>
+//           <Text style={styles.buttonText}> 30ºC </Text>
 
-        </TouchableOpacity >
+//         </TouchableOpacity >
 
-        <TouchableOpacity onPress={() => navigation.navigate('Log', { title: 'Umidade' })} style={styles.button}>
+//         <TouchableOpacity onPress={() => navigation.navigate('Log', { title: 'Umidade' })} style={styles.button}>
         
 
-        <TabBarIcon
-              style={styles.buttonIcon}
-              name={Platform.OS === 'ios' ? 'ios-water' : 'md-water'} />        
-          <Text style={styles.buttonText}> Umidade: </Text>
-          <Text style={styles.buttonText}> 80% </Text>
+//         <TabBarIcon
+//               style={styles.buttonIcon}
+//               name={Platform.OS === 'ios' ? 'ios-water' : 'md-water'} />        
+//           <Text style={styles.buttonText}> Umidade: </Text>
+//           <Text style={styles.buttonText}> 80% </Text>
 
-        </TouchableOpacity>
+//         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate('Log', { title: 'Peso' })} style={styles.button}>
+//         <TouchableOpacity onPress={() => navigation.navigate('Log', { title: 'Peso' })} style={styles.button}>
 
-        <TabBarIcon
-              style={styles.buttonIcon}
-              name={Platform.OS === 'ios' ? 'ios-pulse' : 'md-pulse'} />   
-          <Text style={styles.buttonText}> Peso: </Text>
-          <Text style={styles.buttonText}> 37 Kg </Text>
+//         <TabBarIcon
+//               style={styles.buttonIcon}
+//               name={Platform.OS === 'ios' ? 'ios-pulse' : 'md-pulse'} />   
+//           <Text style={styles.buttonText}> Peso: </Text>
+//           <Text style={styles.buttonText}> 37 Kg </Text>
 
-        </TouchableOpacity>
+//         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate('Log', { title: 'Ruído' })} style={styles.button}>
+//         <TouchableOpacity onPress={() => navigation.navigate('Log', { title: 'Ruído' })} style={styles.button}>
 
-        <TabBarIcon
-              style={styles.buttonIcon}
-              name={Platform.OS === 'ios' ? 'ios-volume-high' : 'md-volume-high'} /> 
-          <Text style={styles.buttonText}> Ruído: </Text>
-          <Text style={styles.buttonText}> 68 dB </Text>
+//         <TabBarIcon
+//               style={styles.buttonIcon}
+//               name={Platform.OS === 'ios' ? 'ios-volume-high' : 'md-volume-high'} /> 
+//           <Text style={styles.buttonText}> Ruído: </Text>
+//           <Text style={styles.buttonText}> 68 dB </Text>
 
-        </TouchableOpacity> */}
-      </View>
-  )
-}
+//         </TouchableOpacity> */}
+//       </View>
+//   )
+// }
 
 const styles = StyleSheet.create({
   container: {
