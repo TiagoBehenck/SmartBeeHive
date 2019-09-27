@@ -1,5 +1,9 @@
 import React, { Component } from "react"
-import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Text, TouchableOpacity, Platform } from "react-native";
+import TabBarIcon from '../components/TabBarIcon';
+
+import { parseISO, format } from 'date-fns'
+import { pt } from 'date-fns/locale'
 
 import Colors from "../constants/Colors";
 import api from "../services/api";
@@ -23,15 +27,22 @@ export default class DataScreen extends Component {
 
   render() {
     return this.state.leituras.length ? (
-      <View style={styles.container}>
-      <Text>
-      {this.state.leituras.length && this.state.leituras.map(leitura => (
-          <Text key={leitura.id}>
-            {leitura.valor_sensor} | {leitura.dataHora} | 
-          </Text>
-        ))}
-      </Text>
-    </View>
+      <View>
+        {this.state.leituras.length && this.state.leituras.map(leitura => (
+          <View key={leitura.id} style={styles.container}>
+            <TouchableOpacity style={styles.button}>
+                <TabBarIcon
+                    style={styles.buttonIcon}
+                    name={Platform.OS === 'ios' ? 'ios-calendar' : 'md-calendar'} />
+                  <Text>Data:</Text>
+                  <Text>{format(parseISO(leitura.dataHora), "'Dia' dd 'de' MMMM', às ' HH:mm'h'", { locale: pt })}</Text>
+              </TouchableOpacity> 
+              <TouchableOpacity>
+                  <Text>{leitura.valor_sensor}</Text>
+              </TouchableOpacity>
+          </View>
+          ))}
+      </View>
     ) : (
       <View style={styles.container}>
          <Text>Carregando...</Text>
@@ -42,23 +53,8 @@ export default class DataScreen extends Component {
 
 }
 
-
-// import React, { useState } from "react";
-// import {
-//     TouchableOpacity,
-//     Text,
-//     View,
-//     StyleSheet, 
-//     Platform
-//   } from 'react-native';
-
-// import TabBarIcon from '../components/TabBarIcon';
-
-// import Colors from '../constants/Colors'
-// import api from '../services/api'
-  
-// // TODO Tela onde vai aparecer as informações em "tempo real" da colmeia
-// // TODO Alinhar ícones a esquerda de cada botão
+//  TODO Tela onde vai aparecer as informações em "tempo real" da colmeia
+//  TODO Alinhar ícones a esquerda de cada botão
 
 // export default function DataScreen({ navigation }) {
 //   const [data, setData] = useState({});
@@ -149,7 +145,8 @@ export default class DataScreen extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1, alignItems: 'center',
+    flex: 1, 
+    alignItems: 'center',
     justifyContent: 'center',
     // backgroundColor: `#999999`,
     padding: 30
