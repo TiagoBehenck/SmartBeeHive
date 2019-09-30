@@ -4,108 +4,186 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  TextInput,
-  ScrollView
+  ScrollView,
+  SafeAreaView
 } from 'react-native';
-
+import Constants from 'expo-constants';
 import NumericInput from 'react-native-numeric-input'
 
 import Colors from '../constants/Colors';
 
+// TODO Alinhar o texto de mínimo e máximo 
+// TODO Enviar JSON para o back com o mínimo e máximo com o ID do sensor
+
 export default function SettingsScreen() {
+
+
+  // Exemplo JSON para enviar para o backend
+  const data =
+  {
+    "tipo":18,
+    "sensores":[
+       {
+          "id":1,
+          "max":10,
+          "min":5
+       },
+       {
+          "id":2,
+          "max":50,
+          "min":6
+       },
+       {
+          "id":3,
+          "max":40,
+          "min":7
+       },
+       {
+          "id":4,
+          "max":30,
+          "min":8
+       }
+    ]
+ }
+
+ function sendData() {
+   alert('Enviando dados')
+ }
+
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.content}>
+    <SafeAreaView style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollview}>
 
-          <Text style={styles.title}> Temperatura (ºC) </Text>
+        <View style={styles.content}>
 
-          <View style={styles.input}>
-            <NumericInput 
-              onChange={value => console.log(value)}
-              rounded = 'true'
-              iconStyle={{ color: "white" }}
-              rightButtonBackgroundColor='#5cb85c' 
-              leftButtonBackgroundColor='#5cb85c'
-            />
-            {/* <Text>ºC</Text> */}
-            <NumericInput 
-              onChange={value => console.log(value)}
-              rounded = 'true'
-              iconStyle={{ color: "white" }}
-              rightButtonBackgroundColor='#d9534f' 
-              leftButtonBackgroundColor='#d9534f'
-            />        
-            {/* <Text>ºC</Text> */}
+            <Text style={styles.title}> Temperatura (ºC) </Text>
+
+            <View style={styles.input}>
+              <NumericInput 
+                onChange={value => console.log(value)}
+                rounded = 'true'
+                iconStyle={{ color: "white" }}
+                rightButtonBackgroundColor='#5cb85c' 
+                leftButtonBackgroundColor='#5cb85c'
+              />
+              <Text>ºC</Text>
+              <NumericInput 
+                onChange={value => console.log(value)}
+                rounded = 'true'
+                iconStyle={{ color: "white" }}
+                rightButtonBackgroundColor='#d9534f' 
+                leftButtonBackgroundColor='#d9534f'
+              />        
+              <Text>ºC</Text>
+            </View>
+            <View style={styles.subtitle}>
+              <Text>Mínimo</Text>
+              <Text>Máximo</Text>
+            </View>
+
           </View>
-          <View style={styles.subtitle}>
-            <Text>Mínimo</Text>
-            <Text>Máximo</Text>
+
+          <View style={styles.content}>
+
+            <Text style={styles.title}> Humidade (%) </Text>
+
+            <View style={styles.input}>
+              <NumericInput 
+                onChange={value => console.log(value)}
+                rounded = 'true'
+                iconStyle={{ color: "white" }}
+                rightButtonBackgroundColor='#5cb85c' 
+                leftButtonBackgroundColor='#5cb85c'
+              />
+              <NumericInput 
+                onChange={value => console.log(value)}
+                rounded = 'true'
+                iconStyle={{ color: "white" }}
+                rightButtonBackgroundColor='#d9534f' 
+                leftButtonBackgroundColor='#d9534f'
+              />        
+            </View>
+            <View style={styles.subtitle}>
+              <Text>Mínimo</Text>
+              <Text>Máximo</Text>
+            </View>
+
           </View>
 
-        </View>
+          <View style={styles.content}>
 
-      {/* <View style={styles.row}>
-        <Text>
-          Umidade
-        </Text>
-        <TextInput
-          style={styles.input}
-          keyboardType={'numeric'}
-          />
-          <Text>%</Text>
-          <TextInput
-          style={styles.input}
-          keyboardType={'numeric'}
-          />
-          <Text>%</Text>
-      </View>
+            <Text style={styles.title}> Ruído (dB) </Text>
 
-      <View style={styles.row}>
-        <Text>
-          Ruido
-        </Text>
-        <TextInput
-          style={styles.input}
-          keyboardType={'numeric'}
-          />
-          <Text>dB</Text>
-          <TextInput
-          style={styles.input}
-          keyboardType={'numeric'}
-          />
-          <Text>dB</Text>
-      </View>
-    
-      <View style={styles.row}> 
-        <Text>
-          Peso
-        </Text>
-        <TextInput
-          style={styles.input}
-          keyboardType={'numeric'}
-          />
-          <Text>KG</Text>
-          <TextInput
-          style={styles.input}
-          keyboardType={'numeric'}
-          />
-          <Text>KG</Text>
-      </View> */}
+            <View style={styles.input}>
+              <NumericInput 
+                onChange={value => console.log(value)}
+                rounded = 'true'
+                iconStyle={{ color: "white" }}
+                rightButtonBackgroundColor='#5cb85c' 
+                leftButtonBackgroundColor='#5cb85c'
+              />
+              <NumericInput 
+                onChange={value => console.log(value)}
+                rounded = 'true'
+                iconStyle={{ color: "white" }}
+                rightButtonBackgroundColor='#d9534f' 
+                leftButtonBackgroundColor='#d9534f'
+              />        
+            </View>
+            <View style={styles.subtitle}>
+              <Text>Mínimo</Text>
+              <Text>Máximo</Text>
+            </View>
 
-     <TouchableOpacity style={styles.button}>
-        <Text style={styles.textButton}>Salvar</Text>
-      </TouchableOpacity>
+          </View>
 
-    </ScrollView>
+          <View style={styles.content}>
+
+            <Text style={styles.title}> Peso (kg) </Text>
+
+            <View style={styles.input}>
+              <NumericInput 
+                onChange={value => console.log(value)}
+                rounded = 'true'
+                iconStyle={{ color: "white" }}
+                rightButtonBackgroundColor='#5cb85c' 
+                leftButtonBackgroundColor='#5cb85c'
+              />
+              <NumericInput 
+                onChange={value => console.log(value)}
+                rounded = 'true'
+                iconStyle={{ color: "white" }}
+                rightButtonBackgroundColor='#d9534f' 
+                leftButtonBackgroundColor='#d9534f'
+              />        
+            </View>
+            <View style={styles.subtitle}>
+              <Text>Mínimo</Text>
+              <Text>Máximo</Text>
+            </View>
+
+          </View>
+
+          
+
+      
+      <TouchableOpacity style={styles.button} onPress={()=>sendData()}>
+          <Text style={styles.textButton}>Salvar</Text>
+        </TouchableOpacity>
+
+      </ScrollView>
+    </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 30
+    marginTop: Constants.statusBarHeight,
+  },
+  scrollview: {
+    marginHorizontal: 20,
+    padding: 10,
   },
   content: {
     marginBottom: 5,
@@ -130,7 +208,7 @@ const styles = StyleSheet.create({
   subtitle: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    padding: 10,
+    paddingTop: 10,
     alignItems: 'center',
   },
   button: {  
