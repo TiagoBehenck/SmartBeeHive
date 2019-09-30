@@ -4,31 +4,47 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  TextInput
+  TextInput,
+  ScrollView
 } from 'react-native';
+
+import NumericInput from 'react-native-numeric-input'
 
 import Colors from '../constants/Colors';
 
 export default function SettingsScreen() {
   return (
-    <View style={styles.container}>
-      <View style={styles.row}>
-        <Text>
-          Temperatura
-        </Text>
-          <TextInput
-          style={styles.input}
-          keyboardType={'numeric'}
-          />
-          <Text>ºC</Text>
-          <TextInput
-          style={styles.input}
-          keyboardType={'numeric'}
-          />
-          <Text>ºC</Text>
+    <ScrollView style={styles.container}>
+      <View style={styles.content}>
+
+          <Text style={styles.title}> Temperatura (ºC) </Text>
+
+          <View style={styles.input}>
+            <NumericInput 
+              onChange={value => console.log(value)}
+              rounded = 'true'
+              iconStyle={{ color: "white" }}
+              rightButtonBackgroundColor='#5cb85c' 
+              leftButtonBackgroundColor='#5cb85c'
+            />
+            {/* <Text>ºC</Text> */}
+            <NumericInput 
+              onChange={value => console.log(value)}
+              rounded = 'true'
+              iconStyle={{ color: "white" }}
+              rightButtonBackgroundColor='#d9534f' 
+              leftButtonBackgroundColor='#d9534f'
+            />        
+            {/* <Text>ºC</Text> */}
+          </View>
+          <View style={styles.subtitle}>
+            <Text>Mínimo</Text>
+            <Text>Máximo</Text>
+          </View>
+
         </View>
 
-      <View style={styles.row}>
+      {/* <View style={styles.row}>
         <Text>
           Umidade
         </Text>
@@ -74,11 +90,13 @@ export default function SettingsScreen() {
           keyboardType={'numeric'}
           />
           <Text>KG</Text>
-      </View>
+      </View> */}
+
      <TouchableOpacity style={styles.button}>
         <Text style={styles.textButton}>Salvar</Text>
       </TouchableOpacity>
-    </View>
+
+    </ScrollView>
   )
 }
 
@@ -89,22 +107,31 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 30
   },
-  row: {
+  content: {
     marginBottom: 5,
-    alignItems: 'center',
     display: 'flex',
-    flexDirection: 'row',
     borderRadius: 4,
     borderWidth: 0.5,
     borderColor: '#d6d7da',
-    padding: 10,
+    padding: 20,
     width: '100%',
-    justifyContent: 'space-around',
+    justifyContent: 'flex-start',
+  },
+  title: {
+    paddingBottom: 10,
   },
   input: {
-    height: "100%",
-    width: 50,
-    marginLeft: 10
+    // padding: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    // justifyContent: 'center',
+  },
+  subtitle: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10,
+    alignItems: 'center',
   },
   button: {  
     height: 60,
@@ -113,8 +140,8 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     marginTop: 40,
     padding: 10,
-    justifyContent: 'center',
     alignItems: 'center',
+    justifyContent: 'center'
   },
   textButton : {
     color:`${Colors.tertiaryColor}`,

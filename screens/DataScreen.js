@@ -1,9 +1,10 @@
 import React, { Component } from "react"
 import { View, StyleSheet, Text, TouchableOpacity, Platform } from "react-native";
-import TabBarIcon from '../components/TabBarIcon';
 
 import { parseISO, format } from 'date-fns'
 import { pt } from 'date-fns/locale'
+
+import TabBarIcon from '../components/TabBarIcon';
 
 import Colors from "../constants/Colors";
 import api from "../services/api";
