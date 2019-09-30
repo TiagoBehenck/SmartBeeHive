@@ -13,7 +13,7 @@ export default class AboutScreen extends Component {
   }
 
   async componentDidMount() {
-    const response = await api.get('/phpjoao.php?dados={"tipo":13,"apicultor":4}')
+    const response = await api.get('/conexao.php?dados={"tipo":13,"apicultor":4}')
     
     this.setState({ colmeias: response.data.colmeias  });
 

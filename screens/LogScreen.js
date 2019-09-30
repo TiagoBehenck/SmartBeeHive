@@ -5,11 +5,15 @@ import Colors from '../constants/Colors';
 
 // TODO Table para listar um log do sensor em questão, seja ela (Temp, umidade, peso ou ruído)
 
-export default function LogScreen() {
+export default function LogScreen({ navigation }) {
+
+  const { params } = navigation.state
+  const id = params.id
 
   return (
     <View style={styles.container}>
         <Text>Histórico de informações</Text>
+        <Text>{id}</Text>
     </View>
   );
 }
