@@ -21,7 +21,7 @@ export default class DataScreen extends Component {
 
   async componentDidMount() {
 
-    const response = await api.get('/phpjoao.php?dados=%7B%22tipo%22:14%7D')
+    const response = await api.get('/conexao.php?dados=%7B%22tipo%22:14%7D')
     
     this.setState({ leituras: response.data.leituras  });
  
@@ -35,12 +35,13 @@ export default class DataScreen extends Component {
             <TouchableOpacity style={styles.button}>
                   <TabBarIcon
                       style={styles.buttonIcon}
-                      name={Platform.OS === 'ios' ? 'ios-calendar' : 'md-calendar'} />
-                    <Text> Data: </Text>
+                      name={Platform.OS === 'ios' ? `${leitura.iconios}` : `${leitura.iconand}`} />
+                    <Text> {leitura.sensor}: </Text>
+                    <Text> {leitura.valor_sensor} </Text>
                     <Text>{format(parseISO(leitura.dataHora), "dd 'de' MMMM', às ' HH:mm'h'", { locale: pt })}</Text>
               </TouchableOpacity> 
           
-              <TouchableOpacity onPress={() => navigation.navigate('Log', { title: 'Temperatura' })} style={styles.button}>
+              {/* <TouchableOpacity onPress={() => navigation.navigate('Log', { title: 'Temperatura' })} style={styles.button}>
                    <TabBarIcon
                          style={styles.buttonIcon}
                          name={Platform.OS === 'ios' ? 'ios-thermometer' : 'md-thermometer'} />
@@ -70,7 +71,7 @@ export default class DataScreen extends Component {
                       name={Platform.OS === 'ios' ? 'ios-volume-high' : 'md-volume-high'} /> 
                   <Text> Ruído: </Text>
                   <Text> 68 dB </Text>
-              </TouchableOpacity> 
+              </TouchableOpacity>  */}
 
           </View>
           ))}
