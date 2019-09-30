@@ -272,7 +272,7 @@
             return;
         }
 
-        $query  = 'select sensores.id, sensores.sensor, sensores.iconios, sensores.iconand, leitura.dataHora, leitura.valor_sensor from sensores '.
+        $query  = 'select sensores.id, sensores.sensor, sensores.iconios, sensores.iconand, sensores.um, leitura.dataHora, leitura.valor_sensor from sensores '.
                   'inner join leitura ON leitura.fk_id_sensor = sensores.id and leitura.id = (select max(leitura.id) '.
                   'from leitura where leitura.fk_id_sensor = sensores.id)';
 
@@ -286,6 +286,7 @@
 
             $sensores = $sensores.'{"id":"'.$retorno['id'].'","sensor":"'.$retorno['sensor'].
                         '","iconios":"'.$retorno['iconios'].'","iconand":"'.$retorno['iconand'].
+                        '","um":"'.$retorno['um'].
                         '","dataHora":"'.$retorno['dataHora'].'","valor_sensor":"'.$retorno['valor_sensor'].'"}';
         }
 

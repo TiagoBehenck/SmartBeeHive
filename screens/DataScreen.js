@@ -38,7 +38,7 @@ export default class DataScreen extends Component {
                       style={styles.buttonIcon}
                       name={Platform.OS === 'ios' ? `${leitura.iconios}` : `${leitura.iconand}`} />
                     <Text> {leitura.sensor}: </Text>
-                    <Text> {leitura.valor_sensor} </Text>
+                    <Text> {leitura.valor_sensor} {leitura.um}</Text>
                     <Text>{format(parseISO(leitura.dataHora), "dd 'de' MMMM', às ' HH:mm'h'", { locale: pt })}</Text>
               </TouchableOpacity> 
           </View>
