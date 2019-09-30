@@ -66,7 +66,6 @@ export default function SettingsScreen() {
                 rightButtonBackgroundColor='#5cb85c' 
                 leftButtonBackgroundColor='#5cb85c'
               />
-              <Text>ºC</Text>
               <NumericInput 
                 onChange={value => console.log(value)}
                 rounded = 'true'
@@ -74,7 +73,6 @@ export default function SettingsScreen() {
                 rightButtonBackgroundColor='#d9534f' 
                 leftButtonBackgroundColor='#d9534f'
               />        
-              <Text>ºC</Text>
             </View>
             <View style={styles.subtitle}>
               <Text>Mínimo</Text>

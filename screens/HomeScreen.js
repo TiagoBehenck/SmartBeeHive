@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
 
   buttonText: {
     color: `${Colors.secundaryColor}`,
-    fontWeight: 'bold',
     fontSize: 16,
   },
 

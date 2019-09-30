@@ -27,10 +27,12 @@ const styles = StyleSheet.create({
 LogScreen.navigationOptions = ({ navigation }) => {
   const { params } = navigation.state
   const title = params.title
-  
+  const id = params.id
+
   return {
     title,
     headerTintColor: '#F3C622',
+    id,
     // headerStyle: { backgroundColor: '#3A3637'},
   }
 }

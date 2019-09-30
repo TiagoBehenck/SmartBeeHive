@@ -9,7 +9,6 @@ import TabBarIcon from '../components/TabBarIcon';
 import Colors from "../constants/Colors";
 import api from "../services/api";
 
-// TODO Ao clicar no botão, fazer navegação para LogScreen
 // TODO Alinhar ícones a esquerda de cada botão
 // TODO Colocar a data e hora como uma "nota de rodapé" no botão 
 export default class DataScreen extends Component {
@@ -34,7 +33,7 @@ export default class DataScreen extends Component {
       <View style={styles.container}>
         {this.state.leituras.length && this.state.leituras.map(leitura => (
           <View key={leitura.id} style={styles.data}>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity onPress={() => {this.props.navigation.navigate('Log', { title: 'Histórico', id: `${leitura.id}` })}} style={styles.button}>
                   <TabBarIcon
                       style={styles.buttonIcon}
                       name={Platform.OS === 'ios' ? `${leitura.iconios}` : `${leitura.iconand}`} />
@@ -64,7 +63,7 @@ const styles = StyleSheet.create({
 
   data: {
     alignSelf: 'stretch',
-    padding: 30
+    padding: 10
   },
 
   button: {
