@@ -96,6 +96,7 @@ handleInputChange = event => {
                 name="1"
                 onChange={() => {e => this.handleInputChange(e)}}
                 rounded = 'true'
+                borderColor = '#fff'
                 iconStyle={{ color: "white" }}
                 rightButtonBackgroundColor='#5cb85c' 
                 leftButtonBackgroundColor='#5cb85c'
@@ -104,6 +105,7 @@ handleInputChange = event => {
                 name="1"
                 onChange={value => handleInputChange(value)}
                 rounded = 'true'
+                borderColor = '#fff'
                 iconStyle={{ color: "white" }}
                 rightButtonBackgroundColor='#d9534f' 
                 leftButtonBackgroundColor='#d9534f'
@@ -124,6 +126,7 @@ handleInputChange = event => {
               <NumericInput 
                 onChange={value => console.log(value)}
                 rounded = 'true'
+                borderColor = '#fff'
                 iconStyle={{ color: "white" }}
                 rightButtonBackgroundColor='#5cb85c' 
                 leftButtonBackgroundColor='#5cb85c'
@@ -131,6 +134,7 @@ handleInputChange = event => {
               <NumericInput 
                 onChange={value => console.log(value)}
                 rounded = 'true'
+                borderColor = '#fff'
                 iconStyle={{ color: "white" }}
                 rightButtonBackgroundColor='#d9534f' 
                 leftButtonBackgroundColor='#d9534f'
@@ -151,6 +155,7 @@ handleInputChange = event => {
               <NumericInput 
                 onChange={value => console.log(value)}
                 rounded = 'true'
+                borderColor = '#fff'
                 iconStyle={{ color: "white" }}
                 rightButtonBackgroundColor='#5cb85c' 
                 leftButtonBackgroundColor='#5cb85c'
@@ -158,6 +163,7 @@ handleInputChange = event => {
               <NumericInput 
                 onChange={value => console.log(value)}
                 rounded = 'true'
+                borderColor = '#fff'
                 iconStyle={{ color: "white" }}
                 rightButtonBackgroundColor='#d9534f' 
                 leftButtonBackgroundColor='#d9534f'
@@ -178,6 +184,7 @@ handleInputChange = event => {
               <NumericInput 
                 onChange={value => console.log(value)}
                 rounded = 'true'
+                borderColor = '#fff'
                 iconStyle={{ color: "white" }}
                 rightButtonBackgroundColor='#5cb85c' 
                 leftButtonBackgroundColor='#5cb85c'
@@ -185,6 +192,7 @@ handleInputChange = event => {
               <NumericInput 
                 onChange={value => console.log(value)}
                 rounded = 'true'
+                borderColor = '#fff'
                 iconStyle={{ color: "white" }}
                 rightButtonBackgroundColor='#d9534f' 
                 leftButtonBackgroundColor='#d9534f'
