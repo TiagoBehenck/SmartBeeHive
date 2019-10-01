@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -10,6 +10,8 @@ import {
 import Constants from 'expo-constants';
 import NumericInput from 'react-native-numeric-input'
 
+import api from '../services/api'
+
 import Colors from '../constants/Colors';
 
 // TODO Alinhar o texto de mínimo e máximo 
@@ -19,36 +21,67 @@ export default function SettingsScreen() {
 
 
   // Exemplo JSON para enviar para o backend
-  const data =
-  {
-    "tipo":18,
-    "sensores":[
-       {
-          "id":1,
-          "max":10,
-          "min":5
-       },
-       {
-          "id":2,
-          "max":50,
-          "min":6
-       },
-       {
-          "id":3,
-          "max":40,
-          "min":7
-       },
-       {
-          "id":4,
-          "max":30,
-          "min":8
-       }
-    ]
- }
+//   const data =
+//   {
+//     "tipo":18,
+//     "sensores":[
+//        {
+//           "id":1,
+//           "max":10,
+//           "min":5
+//        },
+//        {
+//           "id":2,
+//           "max":50,
+//           "min":6
+//        },
+//        {
+//           "id":3,
+//           "max":40,
+//           "min":7
+//        },
+//        {
+//           "id":4,
+//           "max":30,
+//           "min":8
+//        }
+//     ]
+//  }
 
- function sendData() {
-   alert('Enviando dados')
- }
+// const [state, setState] = useState({});
+
+
+state = {
+  temperatura: null,
+  umidade: null,
+  ruido: null,
+  peso: null
+};
+
+handleInputChange = event => {
+  const value = event.target.value;
+  const name = event.target.name;
+
+  this.setState({
+    [name]: value
+  });
+  console.log(state);
+};
+
+
+ async function sendData() {
+
+  const value = event.target.value;
+  const name = event.target.name;
+
+  setData({
+    [name]: value
+  })
+
+  await api.get('/conexao.php?') 
+
+  alert(setData);
+}
 
   return (
     <SafeAreaView style={styles.container}>
@@ -60,14 +93,16 @@ export default function SettingsScreen() {
 
             <View style={styles.input}>
               <NumericInput 
-                onChange={value => console.log(value)}
+                name="1"
+                onChange={() => {e => this.handleInputChange(e)}}
                 rounded = 'true'
                 iconStyle={{ color: "white" }}
                 rightButtonBackgroundColor='#5cb85c' 
                 leftButtonBackgroundColor='#5cb85c'
               />
               <NumericInput 
-                onChange={value => console.log(value)}
+                name="1"
+                onChange={value => handleInputChange(value)}
                 rounded = 'true'
                 iconStyle={{ color: "white" }}
                 rightButtonBackgroundColor='#d9534f' 
