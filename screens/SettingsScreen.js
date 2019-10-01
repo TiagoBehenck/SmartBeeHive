@@ -48,40 +48,27 @@ export default function SettingsScreen() {
 //     ]
 //  }
 
-// const [state, setState] = useState({});
 
+//  async function sendData() {
 
-state = {
-  temperatura: null,
-  umidade: null,
-  ruido: null,
-  peso: null
-};
+//   await api.get('/conexao.php?') 
 
-handleInputChange = event => {
-  const value = event.target.value;
-  const name = event.target.name;
+// }
 
-  this.setState({
-    [name]: value
-  });
-  console.log(state);
-};
+// const [state, setState] = useState(null);
 
+  handleInputChange = event => {
 
- async function sendData() {
+    // const value = event.target.value;
+    // const name = event.target.name;
 
-  const value = event.target.value;
-  const name = event.target.name;
+    // setState({
+    //   [name]: value
+    // });
 
-  setData({
-    [name]: value
-  })
-
-  await api.get('/conexao.php?') 
-
-  alert(setData);
-}
+    console.log("Value >>", event)
+    // console.log("Name >>", event.target.name)
+  } 
 
   return (
     <SafeAreaView style={styles.container}>
@@ -94,7 +81,7 @@ handleInputChange = event => {
             <View style={styles.input}>
               <NumericInput 
                 name="1"
-                onChange={() => {e => this.handleInputChange(e)}}
+                onChange={e => handleInputChange(e)}
                 rounded = 'true'
                 borderColor = '#fff'
                 iconStyle={{ color: "white" }}
@@ -102,8 +89,8 @@ handleInputChange = event => {
                 leftButtonBackgroundColor='#5cb85c'
               />
               <NumericInput 
-                name="1"
-                onChange={value => handleInputChange(value)}
+                name="2"
+                onChange={e => console.log(e)}
                 rounded = 'true'
                 borderColor = '#fff'
                 iconStyle={{ color: "white" }}
