@@ -30,7 +30,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    // backgroundColor: `${Colors.quaternaryColor}`,
     padding: 30
   },
 
@@ -38,7 +37,7 @@ const styles = StyleSheet.create({
     height: 60,
     alignSelf: 'stretch',
     backgroundColor: `${Colors.primaryColor}`,
-    borderRadius: 4,
+    borderRadius: 50,
     marginTop: 10,
     justifyContent: 'center',
     alignItems: 'center',

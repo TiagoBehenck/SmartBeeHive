@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     height: 60,
     alignSelf: 'stretch',
     backgroundColor: `${Colors.primaryColor}`,
-    borderRadius: 4,
+    borderRadius: 50,
     marginTop: 10,
     justifyContent: 'space-around',
     alignItems: 'center',

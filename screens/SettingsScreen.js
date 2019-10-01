@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
   content: {
     marginBottom: 5,
     display: 'flex',
-    borderRadius: 4,
+    borderRadius: 10,
     borderWidth: 0.5,
     borderColor: '#d6d7da',
     padding: 20,
@@ -256,7 +256,7 @@ const styles = StyleSheet.create({
     height: 60,
     alignSelf: 'stretch',
     backgroundColor: `${Colors.quaternaryColor}`,
-    borderRadius: 4,
+    borderRadius: 50,
     marginTop: 40,
     padding: 10,
     alignItems: 'center',
