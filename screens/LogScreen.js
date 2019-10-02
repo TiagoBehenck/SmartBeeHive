@@ -16,7 +16,9 @@ export default function LogScreen({ navigation }) {
 
   const { params } = navigation.state
   const id = params.id
-  const [state, setState] = useState(new Date);
+  const [state, setState] = useState({});
+
+  setState(new Date)
 
 
   return (
@@ -51,7 +53,7 @@ export default function LogScreen({ navigation }) {
 
         <DatePicker
           style={styles.input}
-          mode="date" //The enum of date, datetime and time
+          mode="date" 
           placeholder="Data"
           format="DD-MM-YYYY"
           confirmBtnText="Confirm"

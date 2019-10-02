@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import {
   View,
   Text,
@@ -16,11 +16,12 @@ import Colors from '../constants/Colors';
 
 // TODO Alinhar o texto de mínimo e máximo 
 // TODO Enviar JSON para o back com o mínimo e máximo com o ID do sensor
+// TODO Utilizar .map para ser mais inteligente https://gist.github.com/TiagoBehenck/7835488b89bfcf624d5eb98f598da900
 
 export default function SettingsScreen() {
 
 
-  // Exemplo JSON para enviar para o backend
+// Exemplo JSON para enviar para o backend
 //   const data =
 //   {
 //     "tipo":18,
@@ -49,26 +50,23 @@ export default function SettingsScreen() {
 //  }
 
 
-//  async function sendData() {
+const [state, setState] = useState({});
 
-//   await api.get('/conexao.php?') 
+  const change = useCallback((id, values) => {
+    setState((state) => ( {...state, [id]: {...(state[id] || {}), ...values} }) )
+  }, [state]
+    
+  )
 
-// }
+  async function sendData() {
 
-// const [state, setState] = useState(null);
+    const data = JSON.stringify(state)
 
-  handleInputChange = event => {
+    // const response = await api.get(`/conexao.php?dados=${data}`) 
 
-    // const value = event.target.value;
-    // const name = event.target.name;
+    console.log("Enviar para o BACK >>", data)
 
-    // setState({
-    //   [name]: value
-    // });
-
-    console.log("Value >>", event)
-    // console.log("Name >>", event.target.name)
-  } 
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -81,7 +79,7 @@ export default function SettingsScreen() {
             <View style={styles.input}>
               <NumericInput 
                 name="1"
-                onChange={e => handleInputChange(e)}
+                onChange={(e) => change(1, {min: e})}
                 rounded = 'true'
                 borderColor = '#fff'
                 iconStyle={{ color: "white" }}
@@ -90,7 +88,7 @@ export default function SettingsScreen() {
               />
               <NumericInput 
                 name="2"
-                onChange={e => console.log(e)}
+                onChange={(e) => change(1, {max: e})}
                 rounded = 'true'
                 borderColor = '#fff'
                 iconStyle={{ color: "white" }}
@@ -111,7 +109,7 @@ export default function SettingsScreen() {
 
             <View style={styles.input}>
               <NumericInput 
-                onChange={value => console.log(value)}
+                onChange={(e) => change(2, {min: e})}
                 rounded = 'true'
                 borderColor = '#fff'
                 iconStyle={{ color: "white" }}
@@ -119,7 +117,7 @@ export default function SettingsScreen() {
                 leftButtonBackgroundColor='#5cb85c'
               />
               <NumericInput 
-                onChange={value => console.log(value)}
+                onChange={(e) => change(2, {max: e})}
                 rounded = 'true'
                 borderColor = '#fff'
                 iconStyle={{ color: "white" }}
@@ -140,7 +138,7 @@ export default function SettingsScreen() {
 
             <View style={styles.input}>
               <NumericInput 
-                onChange={value => console.log(value)}
+                onChange={(e) => change(3, {min: e})}
                 rounded = 'true'
                 borderColor = '#fff'
                 iconStyle={{ color: "white" }}
@@ -148,7 +146,7 @@ export default function SettingsScreen() {
                 leftButtonBackgroundColor='#5cb85c'
               />
               <NumericInput 
-                onChange={value => console.log(value)}
+                onChange={(e) => change(3, {max: e})}
                 rounded = 'true'
                 borderColor = '#fff'
                 iconStyle={{ color: "white" }}
@@ -169,7 +167,7 @@ export default function SettingsScreen() {
 
             <View style={styles.input}>
               <NumericInput 
-                onChange={value => console.log(value)}
+                onChange={(e) => change(4, {min: e})}
                 rounded = 'true'
                 borderColor = '#fff'
                 iconStyle={{ color: "white" }}
@@ -177,7 +175,7 @@ export default function SettingsScreen() {
                 leftButtonBackgroundColor='#5cb85c'
               />
               <NumericInput 
-                onChange={value => console.log(value)}
+                onChange={(e) => change(4, {max: e})}
                 rounded = 'true'
                 borderColor = '#fff'
                 iconStyle={{ color: "white" }}
@@ -191,9 +189,6 @@ export default function SettingsScreen() {
             </View>
 
           </View>
-
-          
-
       
       <TouchableOpacity style={styles.button} onPress={()=>sendData()}>
           <Text style={styles.textButton}>Salvar</Text>
@@ -227,11 +222,9 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   input: {
-    // padding: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    // justifyContent: 'center',
   },
   subtitle: {
     flexDirection: 'row',
@@ -260,5 +253,4 @@ const styles = StyleSheet.create({
 SettingsScreen.navigationOptions = {
   title: 'Configuração',
   headerTintColor: '#F3C622',
-  // headerStyle: { backgroundColor: '#3A3637'},
 };
