@@ -60,11 +60,13 @@ const [state, setState] = useState({});
 
   async function sendData() {
 
-    const data = JSON.stringify(state)
+    // const data = JSON.stringify(state)
 
     // const response = await api.get(`/conexao.php?dados=${data}`) 
 
-    console.log("Enviar para o BACK >>", data)
+    Object.keys(state).map((key) => ({id: key, ...state[id]}))
+
+    console.log("Enviar para o BACK >>", state)
 
   }
 

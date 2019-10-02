@@ -5,6 +5,10 @@ import DatePicker from 'react-native-datepicker';
 
 import api from '../services/api'
 
+import { parseISO, format } from 'date-fns'
+import { pt } from 'date-fns/locale'
+
+
 // TODO Table para listar um log do sensor em questão, seja ela (Temp, umidade, peso ou ruído)
 
 
@@ -12,14 +16,14 @@ async function sendData() {
   alert('Funcionando =)')
 }
 
+// TODO Criar data inicio e data fim no hook 
+
 export default function LogScreen({ navigation }) {
 
   const { params } = navigation.state
   const id = params.id
-  const [state, setState] = useState({});
-
-  setState(new Date)
-
+  
+  const [state, setState] = useState(new Date);
 
   return (
     <View style={styles.container}>
@@ -33,7 +37,7 @@ export default function LogScreen({ navigation }) {
           style={styles.input}
           date={state}
           mode="date"
-          format="DD-MM-YYYY"
+          format="DD/MM/YYYY"
           confirmBtnText="Confirm"
           cancelBtnText="Cancel"
           customStyles={{
@@ -47,15 +51,16 @@ export default function LogScreen({ navigation }) {
               marginLeft: 36
             }
           }}
-          onDateChange={(date) => {useState({date: date})}}
+          onDateChange={(date) => setState(date)}
         />
 
 
         <DatePicker
           style={styles.input}
+          date={state}
           mode="date" 
           placeholder="Data"
-          format="DD-MM-YYYY"
+          format="DD/MM/YYYY"
           confirmBtnText="Confirm"
           cancelBtnText="Cancel"
           customStyles={{
@@ -70,7 +75,7 @@ export default function LogScreen({ navigation }) {
               alignSelf: 'stretch',
             }
           }}
-          onDateChange={(date) => {console.log(date)}}
+          onDateChange={(date) => setState(date)}
         />
 
         {/* <TouchableOpacity onPress={() => sendData()}>
