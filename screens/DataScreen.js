@@ -34,13 +34,13 @@ export default class DataScreen extends Component {
         {this.state.leituras.length && this.state.leituras.map(leitura => (
           <View key={leitura.id} style={styles.data}>
             <TouchableOpacity onPress={() => {this.props.navigation.navigate('Log', { title: 'Histórico', id: `${leitura.id}` })}} style={styles.button}>
-                  <TabBarIcon
-                      style={styles.buttonIcon}
-                      name={Platform.OS === 'ios' ? `${leitura.iconios}` : `${leitura.iconand}`} />
-                    <Text> {leitura.sensor}: </Text>
-                    <Text> {leitura.valor_sensor} {leitura.um}</Text>
-                    <Text>{format(parseISO(leitura.dataHora), "dd 'de' MMMM', às ' HH:mm'h'", { locale: pt })}</Text>
-              </TouchableOpacity> 
+              <TabBarIcon
+                  style={styles.buttonIcon}
+                  name={Platform.OS === 'ios' ? `${leitura.iconios}` : `${leitura.iconand}`} />
+                <Text> {leitura.sensor}: </Text>
+                <Text> {leitura.valor_sensor} {leitura.um}</Text>
+              <Text>{format(parseISO(leitura.dataHora), "dd 'de' MMMM', às ' HH:mm'h'", { locale: pt })}</Text>
+           </TouchableOpacity> 
           </View>
           ))}
       </View>

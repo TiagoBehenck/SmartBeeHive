@@ -1,29 +1,37 @@
-import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 import DatePicker from 'react-native-datepicker';
 
-import Colors from '../constants/Colors';
+import api from '../services/api'
 
 // TODO Table para listar um log do sensor em questão, seja ela (Temp, umidade, peso ou ruído)
+
+
+async function sendData() {
+  alert('Funcionando =)')
+}
 
 export default function LogScreen({ navigation }) {
 
   const { params } = navigation.state
   const id = params.id
+  const [state, setState] = useState(new Date);
+
 
   return (
     <View style={styles.container}>
-        <Text>Histórico de informações</Text>
-        <Text>{id}</Text>
+      
+        <Text style={styles.tite}>
+          {/* {id} */}
+          Selecione o intervalo de datas:
+        </Text>
 
         <DatePicker
-          style={{width: 200}}
-          mode="date" //The enum of date, datetime and time
-          placeholder="select date"
+          style={styles.input}
+          date={state}
+          mode="date"
           format="DD-MM-YYYY"
-          minDate="01-01-2016"
-          maxDate="01-01-2019"
           confirmBtnText="Confirm"
           cancelBtnText="Cancel"
           customStyles={{
@@ -37,17 +45,15 @@ export default function LogScreen({ navigation }) {
               marginLeft: 36
             }
           }}
-          onDateChange={(date) => {console.log(date)}}
+          onDateChange={(date) => {useState({date: date})}}
         />
 
 
         <DatePicker
-          style={{width: 200}}
+          style={styles.input}
           mode="date" //The enum of date, datetime and time
-          placeholder="select date"
+          placeholder="Data"
           format="DD-MM-YYYY"
-          minDate="01-01-2016"
-          maxDate="01-01-2019"
           confirmBtnText="Confirm"
           cancelBtnText="Cancel"
           customStyles={{
@@ -58,12 +64,16 @@ export default function LogScreen({ navigation }) {
               marginLeft: 0
             },
             dateInput: {
-              marginLeft: 36
+              marginLeft: 36,
+              alignSelf: 'stretch',
             }
           }}
           onDateChange={(date) => {console.log(date)}}
         />
 
+        {/* <TouchableOpacity onPress={() => sendData()}>
+          <Text>Olá mundo</Text>
+        </TouchableOpacity> */}
 
     </View>
   );
@@ -77,6 +87,14 @@ const styles = StyleSheet.create({
     // backgroundColor: `${Colors.quaternaryColor}`,
     padding: 30
   },
+  title: {
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+  },
+  input: {
+    width: 300,
+    marginTop: 10
+  }
 });
 
 LogScreen.navigationOptions = ({ navigation }) => {
