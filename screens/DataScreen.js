@@ -32,16 +32,20 @@ export default class DataScreen extends Component {
     return this.state.leituras.length ? (
       <View style={styles.container}>
         {this.state.leituras.length && this.state.leituras.map(leitura => (
-          <View key={leitura.id} style={styles.data}>
-            <TouchableOpacity onPress={() => {this.props.navigation.navigate('Log', { title: 'Histórico', id: `${leitura.id}` })}} style={styles.button}>
-              <TabBarIcon
-                  style={styles.buttonIcon}
-                  name={Platform.OS === 'ios' ? `${leitura.iconios}` : `${leitura.iconand}`} />
-                <Text> {leitura.sensor}: </Text>
-                <Text> {leitura.valor_sensor} {leitura.um}</Text>
-              <Text>{format(parseISO(leitura.dataHora), "dd 'de' MMMM', às ' HH:mm'h'", { locale: pt })}</Text>
+            <TouchableOpacity key={leitura.id} onPress={() => {this.props.navigation.navigate('Log', { title: 'Histórico', id: `${leitura.id}` })}} style={styles.button}>
+              <View style={styles.info}>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <TabBarIcon
+                      style={styles.buttonIcon}
+                      name={Platform.OS === 'ios' ? `${leitura.iconios}` : `${leitura.iconand}`} />
+                   <Text> {leitura.sensor}: </Text>
+                </View>
+                  <Text> {leitura.valor_sensor} {leitura.um}</Text>
+              </View>
+              <View style={styles.date}>
+                <Text style={{color: '#999'}}>{format(parseISO(leitura.dataHora), "dd 'de' MMMM', às ' HH:mm'h'", { locale: pt })}</Text>
+              </View>
            </TouchableOpacity> 
-          </View>
           ))}
       </View>
     ) : (
@@ -57,35 +61,40 @@ const styles = StyleSheet.create({
     flex: 1, 
     alignItems: 'center',
     justifyContent: 'center',
-    alignSelf: 'stretch'
-    // backgroundColor: `#999999`,
-  },
-
-  data: {
-    alignSelf: 'stretch',
     padding: 10
   },
 
   button: {
-    flexDirection: 'row',
-    height: 60,
-    alignSelf: 'stretch',
+    height: 65,
     backgroundColor: `${Colors.primaryColor}`,
     borderRadius: 10,
     marginTop: 10,
-    justifyContent: 'space-around',
-    alignItems: 'center',
+    alignSelf: 'stretch',
+    justifyContent: 'flex-start'
   },
 
   buttonIcon: {
-    marginLeft: 20,
+    padding: 2
   },
 
+  info: {
+    marginTop: 5,
+    paddingHorizontal: 50,
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 5
+  },
+
+  date: {
+    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
+    marginRight: 50
+  }
 
 });
 
 DataScreen.navigationOptions = {
   title: 'Sensores',
   headerTintColor: '#F3C622',
-  // headerStyle: { backgroundColor: '#3A3637'},
 };
