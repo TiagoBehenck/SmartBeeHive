@@ -65,12 +65,12 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    height: 65,
+    height: 80,
     backgroundColor: `${Colors.primaryColor}`,
     borderRadius: 10,
     marginTop: 10,
     alignSelf: 'stretch',
-    justifyContent: 'flex-start'
+    justifyContent: 'center'
   },
 
   buttonIcon: {
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
   },
 
   info: {
-    marginTop: 5,
+    marginTop: 20,
     paddingHorizontal: 50,
     alignItems: 'center',
     flexDirection: 'row',
@@ -87,6 +87,7 @@ const styles = StyleSheet.create({
   },
 
   date: {
+    paddingBottom: 10,
     alignItems: 'flex-end',
     justifyContent: 'flex-end',
     marginRight: 50
