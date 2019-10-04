@@ -5,7 +5,8 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
-  SafeAreaView
+  SafeAreaView,
+  KeyboardAvoidingView
 } from 'react-native';
 import Constants from 'expo-constants';
 import NumericInput from 'react-native-numeric-input'
@@ -17,6 +18,7 @@ import Colors from '../constants/Colors';
 // TODO Alinhar o texto de mínimo e máximo 
 // TODO Enviar JSON para o back com o mínimo e máximo com o ID do sensor
 // TODO Utilizar .map para ser mais inteligente https://gist.github.com/TiagoBehenck/7835488b89bfcf624d5eb98f598da900
+// TODO Teclado ficar por cima dos input, ver como utilizar KeyboardAvoidingView
 
 export default function SettingsScreen() {
 
@@ -163,6 +165,7 @@ const [state, setState] = useState({});
 
           </View>
 
+        
           <View style={styles.content}>
 
             <Text style={styles.title}> Peso (kg) </Text>
@@ -191,7 +194,6 @@ const [state, setState] = useState({});
             </View>
 
           </View>
-      
       <TouchableOpacity style={styles.button} onPress={()=>sendData()}>
           <Text style={styles.textButton}>Salvar</Text>
         </TouchableOpacity>
