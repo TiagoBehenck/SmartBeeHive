@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Platform } from 'react-native';
 
+import TabBarIcon from '../components/TabBarIcon';
 import DatePicker from 'react-native-datepicker';
+
+import Colors from '../constants/Colors';
 
 import api from '../services/api'
 
@@ -22,12 +25,12 @@ export default function LogScreen({ navigation }) {
   return (
     <View style={styles.container}>
       
-        <Text style={styles.tite}>
+        <Text style={styles.title}>
           {/* {id} */}
           Selecione o intervalo de datas:
         </Text>
 
-        <Text>Data Início:</Text>
+        <Text style={styles.date}> Início: </Text>
         <DatePicker
           style={styles.input}
           date={state.dataInicio}
@@ -50,7 +53,7 @@ export default function LogScreen({ navigation }) {
           onDateChange={(date) => setState({  dataInicio : date })}
         />
 
-        <Text>Data Final:</Text>
+        <Text style={styles.date}> Final: </Text>
         <DatePicker
           style={styles.input}
           date={state.dataFinal}
@@ -75,9 +78,11 @@ export default function LogScreen({ navigation }) {
           onDateChange={(date) => setState({ dataFinal : date })}
         />
 
-        {/* <TouchableOpacity onPress={() => sendData()}>
-          <Text>Pesquisar</Text>
-        </TouchableOpacity> */}
+        <TouchableOpacity onPress={() => sendData()} style={styles.button}>
+        <TabBarIcon
+            name={Platform.OS === 'ios' ? `ios-search` : `md-search`} />
+          <Text style={styles.buttonText}>Pesquisar</Text>
+        </TouchableOpacity>
 
     </View>
   );
@@ -86,18 +91,37 @@ export default function LogScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 30
+    padding: 30,
   },
   title: {
-    alignItems: 'flex-start',
+    textAlign: 'center',
+    paddingBottom: 10,
+    fontSize: 16
+    // alignItems: 'center',
+    // justifyContent: 'center',
+  },
+  date: {
     justifyContent: 'flex-start',
+    marginTop: 10
   },
   input: {
-    width: 300,
-    marginTop: 10
-  }
+    width: 350,
+    marginTop: 10,
+  }, 
+  button: {
+    flexDirection: 'row',
+    height: 50,
+    backgroundColor: `${Colors.primaryColor}`,
+    borderRadius: 50,
+    marginTop: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: `${Colors.secundaryColor}`,
+    fontSize: 16,
+    paddingHorizontal: 20
+  },
 });
 
 LogScreen.navigationOptions = ({ navigation }) => {
