@@ -13,6 +13,14 @@ dht DHT;
 // Setando os pinos que esta ligado o shield wifi
 SoftwareSerial mySerial(52, 53);
 
+int pino_analogico = A6;
+int pino_digital = 7;
+
+
+// Setando o sensor de som, microfone 
+int valor_A0 = 0;
+int valor_D = 0;
+
 // Inicialização do módulo WIFI 
 ESP8266 wifi(mySerial);
 
@@ -31,6 +39,9 @@ void setup()
   // Inicializa serial com taxa de transmissão de 9600 bauds
   Serial.begin(9600);
 
+  pinMode(pino_analogico, INPUT);
+  pinMode(pino_digital, INPUT);
+  
   mySerial.begin(115200);
   mySerial.print("AT+UART_CUR=9600,8,1,0,0\r\n");
   delay(1000);
@@ -70,9 +81,13 @@ void loop()
     // Chama método de leitura da classe dht, com o pino de transmissão de dados ligado no pino A1
     DHT.read22(A1); 
 
+    valor_A0 = analogRead(pino_analogico);
+    valor_D = digitalRead(pino_digital);
+
+
     // Transforma a variavel de string para float assim pode mandar para o bando de dados
     String temperaturastring = "";
-    String somstring = "123";
+    String somstring = "";
     String pesostring = "321";
     String umidadestring = "";
     String data = "";
@@ -80,7 +95,7 @@ void loop()
 
     // Exibe na serial o valor da temperatura
     float temperatura = DHT.temperature;
-
+    
     temperaturastring = String(temperatura);
 
     // Insere em uma variavel o valor da umidade
@@ -109,7 +124,7 @@ void loop()
       if (sensor != "")
         sensor = sensor + ",";
     
-      sensor = sensor + "{\"fk_id_sensor\":\"3\",\"valor_sensor\":\"" + somstring + "\"}";
+      sensor = sensor + "{\"fk_id_sensor\":\"3\",\"valor_sensor\":\"" + valor_A0 + "\"}";
     }
 
     if (pesostring != "NAN"){
@@ -171,8 +186,6 @@ void envia(String dados){
     } else {
         Serial.print("release tcp err! \r\n");
     }
-
-
 
   
 }
