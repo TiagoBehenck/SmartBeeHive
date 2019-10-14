@@ -38,9 +38,9 @@ export default class DataScreen extends Component {
                   <TabBarIcon
                       style={styles.buttonIcon}
                       name={Platform.OS === 'ios' ? `${leitura.iconios}` : `${leitura.iconand}`} />
-                   <Text> {leitura.sensor}: </Text>
+                  <Text style={{color: `${leitura.cor}`}}> {leitura.sensor}: </Text>
                 </View>
-                  <Text> {leitura.valor_sensor} {leitura.um}</Text>
+                  <Text style={{color: `${leitura.cor}`}}> {leitura.valor_sensor} {leitura.um}</Text>
               </View>
               <View style={styles.date}>
                 <Text style={{color: '#999'}}>{format(parseISO(leitura.dataHora), "dd 'de' MMMM', às ' HH:mm'h'", { locale: pt })}</Text>
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: 10,
     alignSelf: 'stretch',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
 
   buttonIcon: {

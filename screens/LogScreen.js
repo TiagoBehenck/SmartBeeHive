@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, Platform } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Platform, ScrollView } from 'react-native';
 
 import TabBarIcon from '../components/TabBarIcon';
 import DatePicker from 'react-native-datepicker';
+
+import { parseISO, format } from 'date-fns'
+import { pt } from 'date-fns/locale'
 
 import Colors from '../constants/Colors';
 
@@ -26,7 +29,7 @@ export default function LogScreen({ navigation }) {
 
     const response = await api.get(`/conexao.php?dados={"tipo":16,"id":${id},"dtini":"${dataInicio}","dtfim":"${dataFim}"}`)
     // console.log(response);
-    setLeituras([response.data.leituras]);
+    setLeituras(response.data.leituras);
   }
 
   return (
@@ -91,10 +94,17 @@ export default function LogScreen({ navigation }) {
           <Text style={styles.buttonText}>Pesquisar</Text>
         </TouchableOpacity>
         
-              <View>
-                <Text>Data: {leituras.dataHora}</Text>
-                <Text>Valor sensor: {leituras.valor_sensor}</Text>
-              </View>
+        <ScrollView>
+          <Text style={styles.content}>
+            {leituras.length && leituras.map(leitura =>(
+              <Text key={leitura.dataHora}>
+                 <Text style={styles.text}>{format(parseISO(leitura.dataHora), "dd 'de' MMMM',' HH:mm'h'", { locale: pt })}</Text>
+                 <Text style={styles.valor}>VALOR SENSOR: {leitura.valor_sensor}</Text>
+              </Text>
+            ))}
+          </Text>
+        </ScrollView>
+
     </View>
   );
 }
@@ -108,8 +118,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     paddingBottom: 10,
     fontSize: 16
-    // alignItems: 'center',
-    // justifyContent: 'center',
   },
   date: {
     justifyContent: 'flex-start',
@@ -133,6 +141,27 @@ const styles = StyleSheet.create({
     fontSize: 16,
     paddingHorizontal: 20
   },
+  content: {
+    flex: 1, 
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 10
+  },
+  row: {
+    height: 80,
+    marginTop: 10,
+    alignSelf: 'stretch',
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  text: {
+    color: '#999',
+    paddingHorizontal: 5,
+  },
+  valor: {
+    paddingHorizontal: 5,
+  }
 });
 
 LogScreen.navigationOptions = ({ navigation }) => {
