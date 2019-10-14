@@ -11,16 +11,23 @@ import api from '../services/api'
 // TODO Table para listar um log do sensor em questão, seja ela (Temp, umidade, peso ou ruído)
 // TODO A data buga e fica ambos input com a data do dia atual 
 
-async function sendData() {
-  alert('Funcionando =)')
-}
+
 
 export default function LogScreen({ navigation }) {
 
   const { params } = navigation.state
   const id = params.id
-  
-  const [state, setState] = useState({ dataInicio: new Date, dataFinal: new Date });
+
+  const [leituras, setLeituras] = useState([])
+  const [dataInicio, setDataInicio] = useState("2019/09/25");
+  const [dataFim, setDataFim] = useState("2019/09/30");
+
+  async function sendData(dataInicio, dataFim) {
+
+    const response = await api.get(`/conexao.php?dados={"tipo":16,"id":${id},"dtini":"${dataInicio}","dtfim":"${dataFim}"}`)
+    // console.log(response);
+    setLeituras([response.data.leituras]);
+  }
 
   return (
     <View style={styles.container}>
@@ -33,10 +40,10 @@ export default function LogScreen({ navigation }) {
         <Text style={styles.date}> Início: </Text>
         <DatePicker
           style={styles.input}
-          date={state.dataInicio}
+          date={dataInicio}
           mode="date"
-          format="DD/MM/YYYY"
-          maxDate={new Date}
+          format="YYYY/MM/DD"
+          // maxDate={new Date}
           confirmBtnText="Confirm"
           cancelBtnText="Cancel"
           customStyles={{
@@ -50,17 +57,17 @@ export default function LogScreen({ navigation }) {
               marginLeft: 36
             }
           }}
-          onDateChange={(date) => setState({  dataInicio : date })}
+          onDateChange={(date) => setDataInicio(date)}
         />
 
         <Text style={styles.date}> Final: </Text>
         <DatePicker
           style={styles.input}
-          date={state.dataFinal}
+          date={dataFim}
           mode="date" 
           placeholder="Data"
-          format="DD/MM/YYYY"
-          maxDate={new Date}
+          format="YYYY/MM/DD"
+          // maxDate={new Date}
           confirmBtnText="Confirm"
           cancelBtnText="Cancel"
           customStyles={{
@@ -75,15 +82,19 @@ export default function LogScreen({ navigation }) {
               alignSelf: 'stretch',
             }
           }}
-          onDateChange={(date) => setState({ dataFinal : date })}
+          onDateChange={(date) => setDataFim(date)}
         />
 
-        <TouchableOpacity onPress={() => sendData()} style={styles.button}>
+        <TouchableOpacity onPress={() => sendData(dataInicio, dataFim)} style={styles.button}>
         <TabBarIcon
             name={Platform.OS === 'ios' ? `ios-search` : `md-search`} />
           <Text style={styles.buttonText}>Pesquisar</Text>
         </TouchableOpacity>
-
+        
+              <View>
+                <Text>Data: {leituras.dataHora}</Text>
+                <Text>Valor sensor: {leituras.valor_sensor}</Text>
+              </View>
     </View>
   );
 }
