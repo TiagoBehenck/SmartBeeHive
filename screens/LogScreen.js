@@ -12,9 +12,6 @@ import Colors from '../constants/Colors';
 import api from '../services/api'
 
 // TODO Table para listar um log do sensor em questão, seja ela (Temp, umidade, peso ou ruído)
-// TODO A data buga e fica ambos input com a data do dia atual 
-
-
 
 export default function LogScreen({ navigation }) {
 

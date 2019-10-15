@@ -11,43 +11,48 @@ import {
 import Constants from 'expo-constants';
 import NumericInput from 'react-native-numeric-input'
 
-// nova linha
-import _ from 'lodash'
+// import _ from 'lodash'
 
 import api from '../services/api'
-
 import Colors from '../constants/Colors';
-
 
 export default function SettingsScreen() {
 
 
-    const [state, setState] = useState([]);
+    const [minTemp, setminTemp] = useState(0);
+    const [maxTemp, setmaxTemp] = useState(0);
+    const [minUmd,  setminUmd] = useState(0);
+    const [maxUmd,  setmaxUmd] = useState(0);
+    const [minRuido, setminRuido] = useState(0);
+    const [maxRuido, setmaxRuido] = useState(0);
+    const [minPeso, setminPeso] = useState(0);
+    const [maxPeso, setmaxPeso] = useState(0);
 
-    const stateById = useMemo(() => {
-        return _.keyBy(state, "id")
-    }, [state])
+
+    // const stateById = useMemo(() => {
+    //     return _.keyBy(state, "id")
+    // }, [state])
 
 
-    function change(id, {min, max}) {
-        if(!stateById[id]) {
-            setState([...state, {id, min, max}])
-            return;
-        }
+    // function change(id, {min, max}) {
+    //     if(!stateById[id]) {
+    //         setState([...state, {id, min, max}])
+    //         return;
+    //     }
 
-	    if(min) {
-        	stateById[id].min = min;
-	    }
-	    if(max) {
-        	stateById[id].max = max;
-	    }	
-    }
+	//     if(min) {
+    //     	stateById[id].min = min;
+	//     }
+	//     if(max) {
+    //     	stateById[id].max = max;
+	//     }	
+    // }
 
     async function sendData() {
 
-      const response = await api.get(`/conexao.php?dados={${state}}`) 
+      const response = await api.post(`/conexao.php?dados={"tipo":18,"sensores":[{"id":1,"max":${maxTemp},"min":${minTemp}},{"id":2,"max":${maxUmd},"min":${minUmd}},{"id":3,"max":${maxPeso},"min":${minPeso}},{"id":4,"max":${maxRuido},"min":${minRuido}}]}`)
 
-      console.log("Enviar para o BACK >>", state)
+      console.log("Enviar para o BACK >>", response)
     }
 
     return (
@@ -60,8 +65,8 @@ export default function SettingsScreen() {
 
                     <View style={styles.input}>
                         <NumericInput
-                            name="1"
-                            onChange={(min) => change(1, { min: min })}
+                            value={minTemp}
+                            onChange={(e) => setminTemp(e)}
                             rounded='true'
                             borderColor='#fff'
                             iconStyle={{ color: "white" }}
@@ -69,8 +74,8 @@ export default function SettingsScreen() {
                             leftButtonBackgroundColor='#5cb85c'
                         />
                         <NumericInput
-                            name="2"
-                            onChange={(e) => change(1, { max: e })}
+                            value={maxTemp}
+                            onChange={(e) => setmaxTemp(e)}
                             rounded='true'
                             borderColor='#fff'
                             iconStyle={{ color: "white" }}
@@ -91,7 +96,8 @@ export default function SettingsScreen() {
 
                     <View style={styles.input}>
                         <NumericInput
-                            onChange={(e) => change(2, { min: e })}
+                            value={minUmd}
+                            onChange={(e) => setminUmd(e)}
                             rounded='true'
                             borderColor='#fff'
                             iconStyle={{ color: "white" }}
@@ -99,7 +105,8 @@ export default function SettingsScreen() {
                             leftButtonBackgroundColor='#5cb85c'
                         />
                         <NumericInput
-                            onChange={(e) => change(2, { max: e })}
+                            value={maxUmd}
+                            onChange={(e) => setmaxUmd(e)}
                             rounded='true'
                             borderColor='#fff'
                             iconStyle={{ color: "white" }}
@@ -113,6 +120,39 @@ export default function SettingsScreen() {
                     </View>
 
                 </View>
+
+                
+                <View style={styles.content}>
+
+                    <Text style={styles.title}> Peso (kg) </Text>
+
+                    <View style={styles.input}>
+                        <NumericInput
+                            value={minPeso}
+                            onChange={(e) => setminPeso(e)}
+                            rounded='true'
+                            borderColor='#fff'
+                            iconStyle={{ color: "white" }}
+                            rightButtonBackgroundColor='#5cb85c'
+                            leftButtonBackgroundColor='#5cb85c'
+                        />
+                        <NumericInput
+                            value={maxPeso}
+                            onChange={(e) => setmaxPeso(e)}
+                            rounded='true'
+                            borderColor='#fff'
+                            iconStyle={{ color: "white" }}
+                            rightButtonBackgroundColor='#d9534f'
+                            leftButtonBackgroundColor='#d9534f'
+                        />
+                    </View>
+                    <View style={styles.subtitle}>
+                        <Text>Mínimo</Text>
+                        <Text>Máximo</Text>
+                    </View>
+
+                </View>
+                
 
                 <View style={styles.content}>
 
@@ -120,7 +160,8 @@ export default function SettingsScreen() {
 
                     <View style={styles.input}>
                         <NumericInput
-                            onChange={(e) => change(3, { min: e })}
+                            value={minRuido}
+                            onChange={(e) => setminRuido(e)}
                             rounded='true'
                             borderColor='#fff'
                             iconStyle={{ color: "white" }}
@@ -128,7 +169,8 @@ export default function SettingsScreen() {
                             leftButtonBackgroundColor='#5cb85c'
                         />
                         <NumericInput
-                            onChange={(e) => change(3, { max: e })}
+                            value={maxRuido}
+                            onChange={(e) => setmaxRuido(e)}
                             rounded='true'
                             borderColor='#fff'
                             iconStyle={{ color: "white" }}
@@ -143,35 +185,6 @@ export default function SettingsScreen() {
 
                 </View>
 
-
-                <View style={styles.content}>
-
-                    <Text style={styles.title}> Peso (kg) </Text>
-
-                    <View style={styles.input}>
-                        <NumericInput
-                            onChange={(e) => change(4, { min: e })}
-                            rounded='true'
-                            borderColor='#fff'
-                            iconStyle={{ color: "white" }}
-                            rightButtonBackgroundColor='#5cb85c'
-                            leftButtonBackgroundColor='#5cb85c'
-                        />
-                        <NumericInput
-                            onChange={(e) => change(4, { max: e })}
-                            rounded='true'
-                            borderColor='#fff'
-                            iconStyle={{ color: "white" }}
-                            rightButtonBackgroundColor='#d9534f'
-                            leftButtonBackgroundColor='#d9534f'
-                        />
-                    </View>
-                    <View style={styles.subtitle}>
-                        <Text>Mínimo</Text>
-                        <Text>Máximo</Text>
-                    </View>
-
-                </View>
                 <TouchableOpacity style={styles.button} onPress={() => sendData()}>
                     <Text style={styles.textButton}>Salvar</Text>
                 </TouchableOpacity>
@@ -210,8 +223,9 @@ const styles = StyleSheet.create({
     },
     subtitle: {
         flexDirection: 'row',
-        justifyContent: 'space-around',
+        justifyContent: 'space-between',
         paddingTop: 10,
+        paddingHorizontal: 38,
         alignItems: 'center',
     },
     button: {

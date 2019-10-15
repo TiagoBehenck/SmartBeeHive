@@ -7,14 +7,9 @@ import {
 } from 'react-native';
 
 import Colors from '../constants/Colors';
-
 // TODO botões listando as colmeias
 
 export default function HomeScreen({ navigation }) {
-
-  // async function handleLogin() {
-  //   navigation.navigate('DataScreen')
-  // }
 
   return (
     <View style={styles.container} >
