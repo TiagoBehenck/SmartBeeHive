@@ -17,6 +17,8 @@ export default function LogScreen({ navigation }) {
 
   const { params } = navigation.state
   const id = params.id
+  const um = params.um
+  const title = params.title
 
   const [leituras, setLeituras] = useState([])
   const [dataInicio, setDataInicio] = useState("2019/09/25");
@@ -30,79 +32,84 @@ export default function LogScreen({ navigation }) {
   }
 
   return (
-    <View style={styles.container}>
-      
-        <Text style={styles.title}>
-          {/* {id} */}
-          Selecione o intervalo de datas:
-        </Text>
-
-        <Text style={styles.date}> Início: </Text>
-        <DatePicker
-          style={styles.input}
-          date={dataInicio}
-          mode="date"
-          format="YYYY/MM/DD"
-          // maxDate={new Date}
-          confirmBtnText="Confirm"
-          cancelBtnText="Cancel"
-          customStyles={{
-            dateIcon: {
-              position: 'absolute',
-              left: 0,
-              top: 4,
-              marginLeft: 0
-            },
-            dateInput: {
-              marginLeft: 36
-            }
-          }}
-          onDateChange={(date) => setDataInicio(date)}
-        />
-
-        <Text style={styles.date}> Final: </Text>
-        <DatePicker
-          style={styles.input}
-          date={dataFim}
-          mode="date" 
-          placeholder="Data"
-          format="YYYY/MM/DD"
-          // maxDate={new Date}
-          confirmBtnText="Confirm"
-          cancelBtnText="Cancel"
-          customStyles={{
-            dateIcon: {
-              position: 'absolute',
-              left: 0,
-              top: 4,
-              marginLeft: 0
-            },
-            dateInput: {
-              marginLeft: 36,
-              alignSelf: 'stretch',
-            }
-          }}
-          onDateChange={(date) => setDataFim(date)}
-        />
-
-        <TouchableOpacity onPress={() => sendData(dataInicio, dataFim)} style={styles.button}>
-        <TabBarIcon
-            name={Platform.OS === 'ios' ? `ios-search` : `md-search`} />
-          <Text style={styles.buttonText}>Pesquisar</Text>
-        </TouchableOpacity>
+    
+      <View style={styles.container}>
         
-        <ScrollView>
-          <Text style={styles.content}>
-            {leituras.length && leituras.map(leitura =>(
-              <Text key={leitura.dataHora}>
-                 <Text style={styles.text}>{format(parseISO(leitura.dataHora), "dd 'de' MMMM',' HH:mm'h'", { locale: pt })}</Text>
-                 <Text style={styles.valor}>VALOR SENSOR: {leitura.valor_sensor}</Text>
-              </Text>
-            ))}
+          <Text style={styles.title}>
+            Selecione o intervalo de datas:
           </Text>
-        </ScrollView>
 
-    </View>
+          <Text style={styles.date}> Início: </Text>
+          <DatePicker
+            style={styles.input}
+            date={dataInicio}
+            mode="date"
+            placeholder="Ano/Mês/Dia"
+            format="YYYY/MM/DD"
+            maxDate={new Date}
+            confirmBtnText="Confirm"
+            cancelBtnText="Cancel"
+            customStyles={{
+              dateIcon: {
+                position: 'absolute',
+                left: 0,
+                top: 4,
+                marginLeft: 0
+              },
+              dateInput: {
+                marginLeft: 36
+              }
+            }}
+            onDateChange={(date) => setDataInicio(date)}
+          />
+
+          <Text style={styles.date}> Final: </Text>
+          <DatePicker
+            style={styles.input}
+            date={dataFim}
+            mode="date" 
+            placeholder="Ano/Mês/Dia"
+            format="YYYY/MM/DD"
+            maxDate={new Date}
+            confirmBtnText="Confirm"
+            cancelBtnText="Cancel"
+            customStyles={{
+              dateIcon: {
+                position: 'absolute',
+                left: 0,
+                top: 4,
+                marginLeft: 0
+              },
+              dateInput: {
+                marginLeft: 36,
+                alignSelf: 'stretch',
+              }
+            }}
+            onDateChange={(date) => setDataFim(date)}
+          />
+
+          <TouchableOpacity onPress={() => sendData(dataInicio, dataFim)} style={styles.button}>
+          <TabBarIcon
+              name={Platform.OS === 'ios' ? `ios-search` : `md-search`} />
+            <Text style={styles.buttonText}>Pesquisar</Text>
+          </TouchableOpacity>
+
+          <ScrollView>
+            <View style={styles.content}>
+              <Text>
+                {title}
+              </Text>
+              {!!leituras.length && leituras.map(leitura =>(
+                <View style={styles.row} key={leitura.dataHora}>
+                  <Text style={styles.text}>{format(parseISO(leitura.dataHora), "dd 'de' MMMM',' HH:mm:ss", { locale: pt })}</Text>
+                  <Text style={styles.valor}> {leitura.valor_sensor} {um} </Text>
+                </View>
+              ))}
+            </View>
+        </ScrollView>
+  
+      </View>
+
   );
 }
 
@@ -139,18 +146,20 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20
   },
   content: {
+    marginTop: 10,
     flex: 1, 
-    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 10
+    padding: 5
   },
   row: {
-    height: 80,
-    marginTop: 10,
     alignSelf: 'stretch',
+    marginTop: 5,
+    paddingHorizontal: 5,
+    alignItems: 'center',
     flexDirection: 'row',
-    justifyContent: 'center'
+    justifyContent: 'space-between',
+    padding: 5
   },
   text: {
     color: '#999',
@@ -166,10 +175,14 @@ LogScreen.navigationOptions = ({ navigation }) => {
   const { params } = navigation.state
   const title = params.title
   const id = params.id
+  const um = params.um
+  // const title = params.title
 
   return {
     title,
     headerTintColor: '#F3C622',
     id,
+    um,
+    title
   }
 }

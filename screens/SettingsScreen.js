@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     View,
     Text,
@@ -16,8 +16,10 @@ import NumericInput from 'react-native-numeric-input'
 import api from '../services/api'
 import Colors from '../constants/Colors';
 
-export default function SettingsScreen() {
 
+// TODO Trazer os valores setados dos INPUT vindo da API 
+
+export default function SettingsScreen() {
 
     const [minTemp, setminTemp] = useState(0);
     const [maxTemp, setmaxTemp] = useState(0);
@@ -29,30 +31,33 @@ export default function SettingsScreen() {
     const [maxPeso, setmaxPeso] = useState(0);
 
 
-    // const stateById = useMemo(() => {
-    //     return _.keyBy(state, "id")
-    // }, [state])
+useEffect(() => {
 
+    async function getData() {
+        const response = await  api.get(`/conexao.php?dados={"tipo":14}`)
+        // response.data.map(dados =>{
+        //     console.log();
+        // })
+        response.data.leituras.map(dados => {
+            
+            if (dados.id === "1") {
+                setmaxTemp(parseInt(dados.max))
+                setminTemp(parseInt(dados.min))
+                console.log("Máximo >>", dados.max)
+                console.log("Mínimo >>", dados.min)
+            }
+        })
+        console.log(response.data.leituras)
+    }
+    getData()
 
-    // function change(id, {min, max}) {
-    //     if(!stateById[id]) {
-    //         setState([...state, {id, min, max}])
-    //         return;
-    //     }
-
-	//     if(min) {
-    //     	stateById[id].min = min;
-	//     }
-	//     if(max) {
-    //     	stateById[id].max = max;
-	//     }	
-    // }
+}, []);
 
     async function sendData() {
 
       const response = await api.post(`/conexao.php?dados={"tipo":18,"sensores":[{"id":1,"max":${maxTemp},"min":${minTemp}},{"id":2,"max":${maxUmd},"min":${minUmd}},{"id":3,"max":${maxPeso},"min":${minPeso}},{"id":4,"max":${maxRuido},"min":${minRuido}}]}`)
 
-      console.log("Enviar para o BACK >>", response)
+    //   console.log("Enviar para o BACK >>", response)
     }
 
     return (

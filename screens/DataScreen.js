@@ -32,7 +32,7 @@ export default class DataScreen extends Component {
     return this.state.leituras.length ? (
       <View style={styles.container}>
         {this.state.leituras.length && this.state.leituras.map(leitura => (
-            <TouchableOpacity key={leitura.id} onPress={() => {this.props.navigation.navigate('Log', { title: 'Histórico', id: `${leitura.id}` })}} style={styles.button}>
+            <TouchableOpacity key={leitura.id} onPress={() => {this.props.navigation.navigate('Log', { title: 'Histórico', id: `${leitura.id}`, um: `${leitura.um}`, title: `${leitura.sensor}` }) }} style={styles.button}>
               <View style={styles.info}>
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
                   <TabBarIcon
