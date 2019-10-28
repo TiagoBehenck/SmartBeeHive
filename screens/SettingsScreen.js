@@ -71,6 +71,7 @@ useEffect(() => {
                     <View style={styles.input}>
                         <NumericInput
                             value={minTemp}
+                            maxValue={100}
                             onChange={(e) => setminTemp(e)}
                             rounded='true'
                             borderColor='#fff'
@@ -80,6 +81,7 @@ useEffect(() => {
                         />
                         <NumericInput
                             value={maxTemp}
+                            maxValue={100}
                             onChange={(e) => setmaxTemp(e)}
                             rounded='true'
                             borderColor='#fff'
@@ -97,11 +99,12 @@ useEffect(() => {
 
                 <View style={styles.content}>
 
-                    <Text style={styles.title}> Humidade (%) </Text>
+                    <Text style={styles.title}> Umidade (%) </Text>
 
                     <View style={styles.input}>
                         <NumericInput
                             value={minUmd}
+                            maxValue={100}
                             onChange={(e) => setminUmd(e)}
                             rounded='true'
                             borderColor='#fff'
@@ -111,6 +114,7 @@ useEffect(() => {
                         />
                         <NumericInput
                             value={maxUmd}
+                            maxValue={100}
                             onChange={(e) => setmaxUmd(e)}
                             rounded='true'
                             borderColor='#fff'
@@ -134,6 +138,7 @@ useEffect(() => {
                     <View style={styles.input}>
                         <NumericInput
                             value={minPeso}
+                            maxValue={100}
                             onChange={(e) => setminPeso(e)}
                             rounded='true'
                             borderColor='#fff'
@@ -143,6 +148,7 @@ useEffect(() => {
                         />
                         <NumericInput
                             value={maxPeso}
+                            maxValue={100}
                             onChange={(e) => setmaxPeso(e)}
                             rounded='true'
                             borderColor='#fff'
@@ -166,6 +172,7 @@ useEffect(() => {
                     <View style={styles.input}>
                         <NumericInput
                             value={minRuido}
+                            maxValue={100}
                             onChange={(e) => setminRuido(e)}
                             rounded='true'
                             borderColor='#fff'
@@ -175,6 +182,7 @@ useEffect(() => {
                         />
                         <NumericInput
                             value={maxRuido}
+                            maxValue={100}
                             onChange={(e) => setmaxRuido(e)}
                             rounded='true'
                             borderColor='#fff'
