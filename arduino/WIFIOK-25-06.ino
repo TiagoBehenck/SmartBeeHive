@@ -31,8 +31,8 @@ String data = "colmeia=1&sensor=1&valor=1";
 int    porta  = 80;
 
 // SSID do WIFI e SENHA 
-String nome_wifi  = "AP402";
-String senha_wifi = "clx6135sbs";
+String nome_wifi  = "";
+String senha_wifi = "";
 
 void setup()
 {
