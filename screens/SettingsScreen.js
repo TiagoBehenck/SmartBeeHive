@@ -6,18 +6,12 @@ import {
     StyleSheet,
     ScrollView,
     SafeAreaView,
-    KeyboardAvoidingView
 } from 'react-native';
 import Constants from 'expo-constants';
 import NumericInput from 'react-native-numeric-input'
 
-// import _ from 'lodash'
-
 import api from '../services/api'
 import Colors from '../constants/Colors';
-
-
-// TODO Trazer os valores setados dos INPUT vindo da API 
 
 export default function SettingsScreen() {
 
@@ -25,14 +19,6 @@ export default function SettingsScreen() {
     const [umd, setUmd] = useState({ min: 0, max: 0 })
     const [ruido, setRuido] = useState({ min: 0, max: 0 })
     const [peso, setPeso] = useState({ min: 0, max: 0 })
-
-    // const [minUmd,  setminUmd] = useState(0);
-    // const [maxUmd,  setmaxUmd] = useState(0);
-    // const [minRuido, setminRuido] = useState(0);
-    // const [maxRuido, setmaxRuido] = useState(0);
-    // const [minPeso, setminPeso] = useState(0);
-    // const [maxPeso, setmaxPeso] = useState(0);
-
 
     async function getData() {
         const response = await  api.get(`/conexao.php?dados={"tipo":14}`)
