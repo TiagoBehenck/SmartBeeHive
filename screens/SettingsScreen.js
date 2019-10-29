@@ -40,6 +40,8 @@ useEffect(() => {
         // })
         response.data.leituras.map(dados => {
             
+            // TODO =) 
+
             if (dados.id === "1") {
                 setmaxTemp(parseInt(dados.max))
                 setminTemp(parseInt(dados.min))
