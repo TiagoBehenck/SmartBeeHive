@@ -21,46 +21,65 @@ import Colors from '../constants/Colors';
 
 export default function SettingsScreen() {
 
-    const [minTemp, setminTemp] = useState(0);
-    const [maxTemp, setmaxTemp] = useState(0);
-    const [minUmd,  setminUmd] = useState(0);
-    const [maxUmd,  setmaxUmd] = useState(0);
-    const [minRuido, setminRuido] = useState(0);
-    const [maxRuido, setmaxRuido] = useState(0);
-    const [minPeso, setminPeso] = useState(0);
-    const [maxPeso, setmaxPeso] = useState(0);
+    const [temp, setTemp] = useState({ min: 0, max: 0 })
+    const [umd, setUmd] = useState({ min: 0, max: 0 })
+    const [ruido, setRuido] = useState({ min: 0, max: 0 })
+    const [peso, setPeso] = useState({ min: 0, max: 0 })
 
+    // const [minUmd,  setminUmd] = useState(0);
+    // const [maxUmd,  setmaxUmd] = useState(0);
+    // const [minRuido, setminRuido] = useState(0);
+    // const [maxRuido, setmaxRuido] = useState(0);
+    // const [minPeso, setminPeso] = useState(0);
+    // const [maxPeso, setmaxPeso] = useState(0);
 
-useEffect(() => {
 
     async function getData() {
         const response = await  api.get(`/conexao.php?dados={"tipo":14}`)
-        // response.data.map(dados =>{
-        //     console.log();
-        // })
-        response.data.leituras.map(dados => {
-            
-            // TODO =) 
 
-            if (dados.id === "1") {
-                setmaxTemp(parseInt(dados.max))
-                setminTemp(parseInt(dados.min))
-                console.log("Máximo >>", dados.max)
-                console.log("Mínimo >>", dados.min)
-            }
-        })
-        console.log(response.data.leituras)
+        const temp = response.data.leituras.find(dados => dados.id === "1");
+        
+        if(temp) {
+            const {min, max} = temp
+            await setTemp({ min: parseInt(min), max: parseInt(max) })
+        }
+
+        const umd = response.data.leituras.find(dados => dados.id === "2");
+
+        if(umd) {
+            const {min, max} = umd
+            await setUmd({ min: parseInt(min), max: parseInt(max) })
+        }
+    
+        
+        const peso = response.data.leituras.find(dados => dados.id === "3");
+        
+        if(peso) {
+            const {min, max} = peso
+            await setPeso({ min: parseInt(min), max: parseInt(max) })
+        }
+
+        const ruido = response.data.leituras.find(dados => dados.id === "4");
+
+        if(ruido) {
+            const {min, max} = ruido
+            await setRuido({ min: parseInt(min), max: parseInt(max) })
+        }
     }
+
+useEffect(() => {
+
+    
     getData()
 
 }, []);
 
     async function sendData() {
 
-      const response = await api.post(`/conexao.php?dados={"tipo":18,"sensores":[{"id":1,"max":${maxTemp},"min":${minTemp}},{"id":2,"max":${maxUmd},"min":${minUmd}},{"id":3,"max":${maxPeso},"min":${minPeso}},{"id":4,"max":${maxRuido},"min":${minRuido}}]}`)
+      await api.post(`/conexao.php?dados={"tipo":18,"sensores":[{"id":1,"max":${temp.max},"min":${temp.min}},{"id":2,"max":${umd.max},"min":${umd.min}},{"id":3,"max":${peso.max},"min":${peso.min}},{"id":4,"max":${ruido.max},"min":${ruido.min}}]}`)
 
-    //   console.log("Enviar para o BACK >>", response)
     }
+
 
     return (
         <SafeAreaView style={styles.container}>
@@ -72,9 +91,9 @@ useEffect(() => {
 
                     <View style={styles.input}>
                         <NumericInput
-                            value={minTemp}
+                            initValue={temp.min}
                             maxValue={100}
-                            onChange={(e) => setminTemp(e)}
+                            onChange={min => setTemp(state => ({...state, min}))}
                             rounded='true'
                             borderColor='#fff'
                             iconStyle={{ color: "white" }}
@@ -82,9 +101,9 @@ useEffect(() => {
                             leftButtonBackgroundColor='#5cb85c'
                         />
                         <NumericInput
-                            value={maxTemp}
+                            initValue={temp.max}
                             maxValue={100}
-                            onChange={(e) => setmaxTemp(e)}
+                            onChange={max => setTemp(state => ({...state, max}))}
                             rounded='true'
                             borderColor='#fff'
                             iconStyle={{ color: "white" }}
@@ -105,9 +124,9 @@ useEffect(() => {
 
                     <View style={styles.input}>
                         <NumericInput
-                            value={minUmd}
+                            initValue={umd.min}
                             maxValue={100}
-                            onChange={(e) => setminUmd(e)}
+                            onChange={min => setUmd(state => ({...state, min}))}
                             rounded='true'
                             borderColor='#fff'
                             iconStyle={{ color: "white" }}
@@ -115,9 +134,9 @@ useEffect(() => {
                             leftButtonBackgroundColor='#5cb85c'
                         />
                         <NumericInput
-                            value={maxUmd}
+                            initValue={umd.max}
                             maxValue={100}
-                            onChange={(e) => setmaxUmd(e)}
+                            onChange={max => setUmd(state => ({...state, max}))}
                             rounded='true'
                             borderColor='#fff'
                             iconStyle={{ color: "white" }}
@@ -139,9 +158,9 @@ useEffect(() => {
 
                     <View style={styles.input}>
                         <NumericInput
-                            value={minPeso}
+                            initValue={peso.min}
                             maxValue={100}
-                            onChange={(e) => setminPeso(e)}
+                            onChange={min => setPeso(state => ({...state, min}))}
                             rounded='true'
                             borderColor='#fff'
                             iconStyle={{ color: "white" }}
@@ -149,9 +168,9 @@ useEffect(() => {
                             leftButtonBackgroundColor='#5cb85c'
                         />
                         <NumericInput
-                            value={maxPeso}
+                            initValue={peso.max}
                             maxValue={100}
-                            onChange={(e) => setmaxPeso(e)}
+                            onChange={max => setPeso(state => ({...state, max}))}
                             rounded='true'
                             borderColor='#fff'
                             iconStyle={{ color: "white" }}
@@ -173,9 +192,9 @@ useEffect(() => {
 
                     <View style={styles.input}>
                         <NumericInput
-                            value={minRuido}
+                            initValue={ruido.min}
                             maxValue={100}
-                            onChange={(e) => setminRuido(e)}
+                            onChange={min => setRuido(state => ({...state, min}))}
                             rounded='true'
                             borderColor='#fff'
                             iconStyle={{ color: "white" }}
@@ -183,9 +202,9 @@ useEffect(() => {
                             leftButtonBackgroundColor='#5cb85c'
                         />
                         <NumericInput
-                            value={maxRuido}
+                            initValue={ruido.max}
                             maxValue={100}
-                            onChange={(e) => setmaxRuido(e)}
+                            onChange={max => setRuido(state => ({...state, max}))}
                             rounded='true'
                             borderColor='#fff'
                             iconStyle={{ color: "white" }}
