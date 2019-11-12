@@ -7,6 +7,11 @@
 //Inclui a biblioteca do sensor de temperatura 
 #include <dht.h> 
 
+// Inclui a biblioteca do conversor
+#include <HX711.h>
+HX711 escala;
+float fator_calibracao;
+
 // Cria um objeto da classe dht
 dht DHT;
 
@@ -20,6 +25,9 @@ int pino_digital = 7;
 // Setando o sensor de som, microfone 
 int valor_A0 = 0;
 int valor_D = 0;
+const int PINO_DT = 3;
+const int PINO_SCK = 2;
+
 
 // Inicialização do módulo WIFI 
 ESP8266 wifi(mySerial);
@@ -46,7 +54,10 @@ void setup()
   mySerial.print("AT+UART_CUR=9600,8,1,0,0\r\n");
   delay(1000);
   mySerial.end();
-
+  escala.begin (PINO_DT, PINO_SCK);
+  float media_leitura = escala.read_average(); 
+  escala.set_scale(200000);
+  
   ESP8266 wifi(mySerial);
 
 
@@ -88,10 +99,12 @@ void loop()
     // Transforma a variavel de string para float assim pode mandar para o bando de dados
     String temperaturastring = "";
     String somstring = "";
-    String pesostring = "321";
+    String pesostring = String(escala.get_units());
     String umidadestring = "";
     String data = "";
     String sensor = "";
+    
+    
 
     // Exibe na serial o valor da temperatura
     float temperatura = DHT.temperature;
